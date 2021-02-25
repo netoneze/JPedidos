@@ -1,4 +1,4 @@
-# JPedidos
+# JPedidos NELSON/YOHAN
 Sistema fictício para controle de pedidos.
 
 ## Requisitos técnicos obrigatórios

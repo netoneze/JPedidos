@@ -1,5 +1,6 @@
 # JPedidos
-Sistema fictício para controle de pedidos. Fork criado por Nelson Toneze e Yohan Pessanha.
+Sistema fictício para controle de pedidos. 
+Fork criado por Nelson Toneze e Yohan Pessanha.
 
 ## Requisitos técnicos obrigatórios
 - Linguagem de programação Java

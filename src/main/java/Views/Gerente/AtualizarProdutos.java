@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.grupooficina.jpedidos.Gerente;
+package Views.Gerente;
 
 /**
  *
@@ -40,7 +40,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"X-Tudo", "Pão, carne, queijo, salada, molho especial, calabresa, ovo, batata...",  new Float(12.0)}
+                {"X-Tudo", "Pão, carne, queijo, salada, molho especial, calabresa, ovo, batata...",  12}
             },
             new String [] {
                 "Nome curto", "Descrição", "Preço unitário"

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.grupooficina.jpedidos.Gerente;
+package Views.Gerente;
 
 /**
  *
@@ -51,8 +51,8 @@ public class DetalhesPedidos extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"X-Salada",  new Integer(4),  new Float(20.0)},
-                {"Refrigerante Lata",  new Integer(3),  new Float(12.0)}
+                {"X-Salada",  4,  20.0},
+                {"Refrigerante Lata",  3,  12}
             },
             new String [] {
                 "Tipo de produto", "Quantidade", "Valor"

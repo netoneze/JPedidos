@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.grupooficina.jpedidos.Funcionario;
+package Views.Funcionario;
 
 /**
  *
@@ -40,8 +40,8 @@ public class ListarPedidos extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "Nelson Piquet", "16:50", "Atendido"},
-                { new Integer(2), "Carlos Henrique", "17:30", "Não Atentido"}
+                { 1, "Nelson Piquet", "16:50", "Atendido"},
+                { 2, "Carlos Henrique", "17:30", "Não Atentido"}
             },
             new String [] {
                 "Número", "Nome", "Horário", "Status"

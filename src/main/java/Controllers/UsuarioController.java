@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author lucas
+ * @author Nelson Toneze e Yohan Pessanha
  */
 public class UsuarioController {
 

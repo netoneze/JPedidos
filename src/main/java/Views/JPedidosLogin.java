@@ -33,8 +33,8 @@ public class JPedidosLogin extends javax.swing.JFrame {
         String password = new String(jPasswordField1.getPassword());
         Usuario usuario = new Usuario();
 
-        usuario.setUsuario_login(username);
-        usuario.setUsuario_password(password);
+        usuario.setUsuarioLogin(username);
+        usuario.setUsuarioPassword(password);
 
         UsuarioController userController = new UsuarioController();
         Usuario resposta = userController.userAutentica(usuario);

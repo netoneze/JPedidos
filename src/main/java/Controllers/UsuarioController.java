@@ -37,8 +37,8 @@ public class UsuarioController {
 
             String sql = "select * from usuario where login = ? and senha = ?";
             PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, usuario.getUsuario_login());
-            pstm.setString(2, usuario.getUsuario_password());
+            pstm.setString(1, usuario.getUsuarioLogin());
+            pstm.setString(2, usuario.getUsuarioPassword());
 
             ResultSet rs = pstm.executeQuery();
 
@@ -57,9 +57,9 @@ public class UsuarioController {
                     }
                     
                     if (!usuarioId.equals("")) {
-                        usuario2.setUsuario_id(Integer.parseInt(usuarioId));
-                        usuario2.setUsuario_login(usuarioLogin);
-                        usuario2.setUsuario_tipo(usuarioTipo);
+                        usuario2.setUsuarioId(Integer.parseInt(usuarioId));
+                        usuario2.setUsuarioLogin(usuarioLogin);
+                        usuario2.setUsuarioTipo(usuarioTipo);
                     } else return null;
                 } catch (SQLException ex) {
                     System.out.println("Something went wrong trying to log in:" + ex);
@@ -89,11 +89,11 @@ public class UsuarioController {
             connection.setAutoCommit(false);
 
             PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, user.getUsuario_nome());
-            pstm.setString(2, user.getUsuario_login());
-            pstm.setString(3, user.getUsuario_password());
-            pstm.setString(4, user.getUsuario_email());
-            pstm.setString(5, user.getUsuario_tipo());
+            pstm.setString(1, user.getUsuarioNome());
+            pstm.setString(2, user.getUsuarioLogin());
+            pstm.setString(3, user.getUsuarioPassword());
+            pstm.setString(4, user.getUsuarioEmail());
+            pstm.setString(5, user.getUsuarioTipo());
 
             pstm.execute();
             pstm.close();
@@ -119,12 +119,12 @@ public class UsuarioController {
 
             while (rs.next()) {
                 Usuario user = new Usuario();
-                user.setUsuario_id(rs.getInt("usuarioid"));
-                user.setUsuario_login(rs.getString("login"));
-                user.setUsuario_email(rs.getString("email"));
-                user.setUsuario_nome(rs.getString("nome"));
-                user.setUsuario_password(rs.getString("senha"));
-                user.setUsuario_tipo(rs.getString("tipo"));
+                user.setUsuarioId(rs.getInt("usuarioid"));
+                user.setUsuarioLogin(rs.getString("login"));
+                user.setUsuarioEmail(rs.getString("email"));
+                user.setUsuarioNome(rs.getString("nome"));
+                user.setUsuarioPassword(rs.getString("senha"));
+                user.setUsuarioTipo(rs.getString("tipo"));
 
                 list.add(user);
             }
@@ -153,7 +153,7 @@ public class UsuarioController {
             connection.setAutoCommit(false);
 
             PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setInt(1, user.getUsuario_id());
+            pstm.setInt(1, user.getUsuarioId());
 
             pstm.execute();
             pstm.close();
@@ -174,12 +174,12 @@ public class UsuarioController {
             connection.setAutoCommit(false);
 
             PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, user.getUsuario_nome());
-            pstm.setString(2, user.getUsuario_login());
-            pstm.setString(3, user.getUsuario_password());
-            pstm.setString(4, user.getUsuario_email());
-            pstm.setString(5, user.getUsuario_tipo());
-            pstm.setInt(6, user.getUsuario_id());
+            pstm.setString(1, user.getUsuarioNome());
+            pstm.setString(2, user.getUsuarioLogin());
+            pstm.setString(3, user.getUsuarioPassword());
+            pstm.setString(4, user.getUsuarioEmail());
+            pstm.setString(5, user.getUsuarioTipo());
+            pstm.setInt(6, user.getUsuarioId());
 
             pstm.execute();
             pstm.close();
@@ -201,7 +201,7 @@ public class UsuarioController {
             connection.setAutoCommit(false);
 
             PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setInt(1, user.getUsuario_id());
+            pstm.setInt(1, user.getUsuarioId());
 
             pstm.execute();
             pstm.close();
@@ -223,7 +223,7 @@ public class UsuarioController {
         }
         
         for (int i = 0; i < listaUsuario.size(); i++) {
-            if (listaUsuario.get(i).getUsuario_email().equals(email)) {
+            if (listaUsuario.get(i).getUsuarioEmail().equals(email)) {
                 return true;
             }
         }
@@ -240,7 +240,7 @@ public class UsuarioController {
         }
         
         for (int i = 0; i < usersList.size(); i++) {
-            if (usersList.get(i).getUsuario_login().equals(login)) {
+            if (usersList.get(i).getUsuarioLogin().equals(login)) {
                 return true;
             }
         }

@@ -31,60 +31,60 @@ public class Usuario {
     
     @Override
     public String toString() {
-        String resposta = this.getUsuario_id() + "\n";
-        resposta += this.getUsuario_nome()     + "\n";
-        resposta += this.getUsuario_login()    + "\n";
-        resposta += this.getUsuario_password() + "\n";
-        resposta += this.getUsuario_email()     + "\n";
-        resposta += this.getUsuario_tipo()     + "\n";
+        String resposta = this.getUsuarioId() + "\n";
+        resposta += this.getUsuarioNome()     + "\n";
+        resposta += this.getUsuarioLogin()    + "\n";
+        resposta += this.getUsuarioPassword() + "\n";
+        resposta += this.getUsuarioEmail()     + "\n";
+        resposta += this.getUsuarioTipo()     + "\n";
         return resposta;
     }
 
-    public int getUsuario_id() {
+    public int getUsuarioId() {
         return usuarioid;
     }
 
-    public String getUsuario_nome() {
+    public String getUsuarioNome() {
         return nome;
     }
 
-    public String getUsuario_login() {
+    public String getUsuarioLogin() {
         return login;
     }
 
-    public String getUsuario_password() {
+    public String getUsuarioPassword() {
         return senha;
     }
 
-    public String getUsuario_email() {
+    public String getUsuarioEmail() {
         return email;
     }
 
-    public String getUsuario_tipo() {
+    public String getUsuarioTipo() {
         return tipo;
     }
 
-    public void setUsuario_id(int usuario_id) {
+    public void setUsuarioId(int usuario_id) {
         this.usuarioid = usuario_id;
     }
 
-    public void setUsuario_nome(String usuario_nome) {
+    public void setUsuarioNome(String usuario_nome) {
         this.nome = usuario_nome;
     }
 
-    public void setUsuario_login(String usuario_login) {
+    public void setUsuarioLogin(String usuario_login) {
         this.login = usuario_login;
     }
 
-    public void setUsuario_password(String usuario_password) {
+    public void setUsuarioPassword(String usuario_password) {
         this.senha = usuario_password;
     }
 
-    public void setUsuario_email(String usuario_email) {
+    public void setUsuarioEmail(String usuario_email) {
         this.email = usuario_email;
     }
 
-    public void setUsuario_tipo(String usuario_tipo) {
+    public void setUsuarioTipo(String usuario_tipo) {
         this.tipo = usuario_tipo;
     }
     

@@ -8,7 +8,7 @@ package Views;
 import java.sql.ResultSet;
 
 import Models.Usuario;
-import Controllers.UsuarioController;
+import Controllers.UsuarioDAO;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -36,7 +36,7 @@ public class JPedidosLogin extends javax.swing.JFrame {
         usuario.setUsuarioLogin(username);
         usuario.setUsuarioPassword(password);
 
-        UsuarioController userController = new UsuarioController();
+        UsuarioDAO userController = new UsuarioDAO();
         Usuario resposta = userController.userAutentica(usuario);
         
         if (resposta != null) {          

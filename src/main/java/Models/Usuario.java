@@ -7,7 +7,7 @@ package Models;
 
 /**
  *
- * @author henrique
+ * @author Nelson Toneze e Yohan Pessanha
  */
 public class Usuario {
     private int usuarioid;

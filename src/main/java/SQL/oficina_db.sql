@@ -1,12 +1,13 @@
 DROP TABLE IF EXISTS usuario;
 
 CREATE table usuario (
+    usuarioid INT NOT NULL AUTO_INCREMENT,
     login VARCHAR(45) NOT NULL,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(50) NOT NULL,
     senha VARCHAR(45) NOT NULL,
-    tipo('administrador', 'gerente', 'funcionario') NOT NULL,
-    PRIMARY KEY(login)
+    tipo ENUM('administrador', 'gerente', 'funcionario') NOT NULL,
+    PRIMARY KEY(usuarioid)
 );
 
 DROP TABLE IF EXISTS pedido;
@@ -14,11 +15,11 @@ DROP TABLE IF EXISTS pedido;
 CREATE table pedido (
     idPedido INT NOT NULL AUTO_INCREMENT,
     nomeCliente VARCHAR(100) NOT NULL,
-    telefoneCliente VARCHAR(10) NOT NULL,
+    telefoneCliente VARCHAR(20) NOT NULL,
     valorTotal FLOAT(10,2) NOT NULL,
-    login VARCHAR(45) NOT NULL,
+    usuarioid INT NOT NULL,
     PRIMARY KEY(idPedido),
-    FOREIGN KEY(login) REFERENCES usuario(login)
+    FOREIGN KEY(usuarioid) REFERENCES usuario(usuarioid)
 );
 
 DROP TABLE IF EXISTS produto;
@@ -43,5 +44,5 @@ CREATE table pedido_has_produto(
 INSERT INTO usuario (nome, login, senha, email, tipo) VALUES ("administrador","admin","admin456","admin@hotmail.com","administrador");
 INSERT INTO usuario (nome, login, senha, email, tipo) VALUES ("gerente","gerente","gerente456","gerente@hotmail.com","gerente");
 INSERT INTO usuario (nome, login, senha, email, tipo) VALUES ("usuario","usuario","usuario456","usuario@hotmail.com","funcionario");
-INSERT INTO pedido (idPedido, nomeCliente, telefoneCliente, login, valortotal) VALUES (1,"Cleyton", "(11)66666-6666","cleiton", 333.66);
+INSERT INTO pedido (idPedido, nomeCliente, telefoneCliente, usuarioid, valortotal) VALUES (1,"Cleyton", "(11)66666-6666", 3, 333.66);
 INSERT INTO produto (nome, descricao, precoUnid) VALUES ("Produto 3", "O produto 3 possui a seguinte descrição", 111.99);

@@ -25,20 +25,20 @@ CREATE table pedido (
 DROP TABLE IF EXISTS produto;
 
 CREATE table produto(
+    produtoId INT NOT NULL AUTO INCREMENT,
     nome VARCHAR(30) NOT NULL,
     descricao VARCHAR(100) NOT NULL,
     precoUnid FLOAT(10,2) NOT NULL,
-    PRIMARY KEY(nome)
+    PRIMARY KEY(produtoId)
 );
 
 DROP TABLE IF EXISTS order_product;
 
 CREATE table pedido_has_produto(
     pedido_idPedido INT NOT NULL,
-    produto_nome VARCHAR(30) NOT NULL,
-    quantidade INT NOT NULL,
+    produto_id INT NOT NULL,
     FOREIGN KEY(pedido_idPedido) REFERENCES pedido(idPedido),
-    FOREIGN KEY(produto_nome) REFERENCES produto(nome)
+    FOREIGN KEY(produto_id) REFERENCES produto(produtoId)
 );
 
 INSERT INTO usuario (nome, login, senha, email, tipo) VALUES ("administrador","admin","admin456","admin@hotmail.com","administrador");

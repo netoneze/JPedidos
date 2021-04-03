@@ -21,9 +21,9 @@ import java.util.ArrayList;
  */
 public class UsuarioDAO {
 
-    private static final String path = System.getProperty("user.dir");
-    private static final File config_file = new File(path + "/src/main/java/Utils/configuracaobd.properties");
-    private static Connection connection = null;
+    private static final String caminho = System.getProperty("user.dir");
+    private static final File configArquivo = new File(caminho + "/src/main/java/Utils/configuracaobd.properties");
+    private static Connection conexao = null;
 
     ArrayList<Usuario> list = new ArrayList<>();
 
@@ -31,29 +31,29 @@ public class UsuarioDAO {
         Usuario usuario2 = new Usuario();
 
         try {
-            JDBCUtil.init(config_file);
-            connection = JDBCUtil.getConnection();
-            connection.setAutoCommit(false);
+            JDBCUtil.init(configArquivo);
+            conexao = JDBCUtil.getConnection();
+            conexao.setAutoCommit(false);
 
             String sql = "select * from usuario where login = ? and senha = ?";
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, usuario.getUsuarioLogin());
-            pstm.setString(2, usuario.getUsuarioPassword());
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, usuario.getUsuarioLogin());
+            preparedStatement.setString(2, usuario.getUsuarioPassword());
 
-            ResultSet rs = pstm.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             String usuarioLogin = "";
             String usuarioPassword = "";
             String usuarioTipo = "";
             String usuarioId = "";
 
-            if (rs != null) {
+            if (resultSet != null) {
                 try {
-                    while (rs.next()) {
-                        usuarioLogin = rs.getString("login");
-                        usuarioPassword = rs.getString("senha");
-                        usuarioTipo = rs.getString("tipo");
-                        usuarioId = rs.getString("usuarioid");
+                    while (resultSet.next()) {
+                        usuarioLogin = resultSet.getString("login");
+                        usuarioPassword = resultSet.getString("senha");
+                        usuarioTipo = resultSet.getString("tipo");
+                        usuarioId = resultSet.getString("usuarioid");
                     }
                     
                     if (!usuarioId.equals("")) {
@@ -84,11 +84,11 @@ public class UsuarioDAO {
         String sql = "insert into usuario (nome, login, senha, email, tipo) values(?,?,?,?,?)";
 
         try {
-            JDBCUtil.init(config_file);
-            connection = JDBCUtil.getConnection();
-            connection.setAutoCommit(false);
+            JDBCUtil.init(configArquivo);
+            conexao = JDBCUtil.getConnection();
+            conexao.setAutoCommit(false);
 
-            PreparedStatement pstm = connection.prepareStatement(sql);
+            PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, user.getUsuarioNome());
             pstm.setString(2, user.getUsuarioLogin());
             pstm.setString(3, user.getUsuarioPassword());
@@ -110,21 +110,21 @@ public class UsuarioDAO {
     public ArrayList<Usuario> listaUsuario() {
         String sql = "select * from usuario";
         try {
-            JDBCUtil.init(config_file);
-            connection = JDBCUtil.getConnection();
-            connection.setAutoCommit(false);
+            JDBCUtil.init(configArquivo);
+            conexao = JDBCUtil.getConnection();
+            conexao.setAutoCommit(false);
 
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            ResultSet rs = pstm.executeQuery();
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            ResultSet resultSet = pstm.executeQuery();
 
-            while (rs.next()) {
+            while (resultSet.next()) {
                 Usuario user = new Usuario();
-                user.setUsuarioId(rs.getInt("usuarioid"));
-                user.setUsuarioLogin(rs.getString("login"));
-                user.setUsuarioEmail(rs.getString("email"));
-                user.setUsuarioNome(rs.getString("nome"));
-                user.setUsuarioPassword(rs.getString("senha"));
-                user.setUsuarioTipo(rs.getString("tipo"));
+                user.setUsuarioId(resultSet.getInt("usuarioid"));
+                user.setUsuarioLogin(resultSet.getString("login"));
+                user.setUsuarioEmail(resultSet.getString("email"));
+                user.setUsuarioNome(resultSet.getString("nome"));
+                user.setUsuarioPassword(resultSet.getString("senha"));
+                user.setUsuarioTipo(resultSet.getString("tipo"));
 
                 list.add(user);
             }
@@ -148,11 +148,11 @@ public class UsuarioDAO {
         String sql = "select senha from usuario where usuarioid = ?";
 
         try {
-            JDBCUtil.init(config_file);
-            connection = JDBCUtil.getConnection();
-            connection.setAutoCommit(false);
+            JDBCUtil.init(configArquivo);
+            conexao = JDBCUtil.getConnection();
+            conexao.setAutoCommit(false);
 
-            PreparedStatement pstm = connection.prepareStatement(sql);
+            PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, user.getUsuarioId());
 
             pstm.execute();
@@ -169,11 +169,11 @@ public class UsuarioDAO {
 
         sql = "update usuario set nome = ?, login = ?, senha = ?, email = ?, tipo = ? where usuarioid = ?";
         try {
-            JDBCUtil.init(config_file);
-            connection = JDBCUtil.getConnection();
-            connection.setAutoCommit(false);
+            JDBCUtil.init(configArquivo);
+            conexao = JDBCUtil.getConnection();
+            conexao.setAutoCommit(false);
 
-            PreparedStatement pstm = connection.prepareStatement(sql);
+            PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, user.getUsuarioNome());
             pstm.setString(2, user.getUsuarioLogin());
             pstm.setString(3, user.getUsuarioPassword());
@@ -196,11 +196,11 @@ public class UsuarioDAO {
     public void deletarUsuario(Usuario user) {
         String sql = "delete from usuario where usuarioid = ?";
         try {
-            JDBCUtil.init(config_file);
-            connection = JDBCUtil.getConnection();
-            connection.setAutoCommit(false);
+            JDBCUtil.init(configArquivo);
+            conexao = JDBCUtil.getConnection();
+            conexao.setAutoCommit(false);
 
-            PreparedStatement pstm = connection.prepareStatement(sql);
+            PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, user.getUsuarioId());
 
             pstm.execute();

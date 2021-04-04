@@ -7,6 +7,7 @@ package Views;
 
 import java.sql.ResultSet;
 
+import Views.Admin.Admin;
 import Models.Usuario;
 import Controllers.UsuarioDAO;
 import java.awt.BorderLayout;
@@ -40,7 +41,13 @@ public class JPedidosLogin extends javax.swing.JFrame {
         Usuario resposta = userController.userAutentica(usuario);
         
         if (resposta != null) {          
-            System.out.println("Usuario encontrado!");
+            if (resposta.getUsuarioTipo().equals("administrador")) {
+                Admin novaTelaAdmin = new Admin();
+
+                novaTelaAdmin.setLayout(new BorderLayout());
+                novaTelaAdmin.setVisible(true);
+                this.dispose();
+            }
         } else {
             System.out.println("Resposta é null. Usuario nao encontrado!");
             JOptionPane.showMessageDialog(null, "Credenciais invalidas!", "Erro", JOptionPane.ERROR_MESSAGE);

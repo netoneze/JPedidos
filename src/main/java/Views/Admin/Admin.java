@@ -5,6 +5,8 @@
  */
 package Views.Admin;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author yohan
@@ -49,8 +51,18 @@ public class Admin extends javax.swing.JFrame {
         });
 
         jButton2.setText("Atualizar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Remover");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,8 +139,25 @@ public class Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        InserirUser novaTelaUser = new InserirUser();
+        novaTelaUser.setLayout(new BorderLayout());
+        novaTelaUser.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        AtualizarUser novaTelaAtualizarUser = new AtualizarUser();
+        novaTelaAtualizarUser.setLayout(new BorderLayout());
+        novaTelaAtualizarUser.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        RemoverUser novaTelaRemoverUser = new RemoverUser();
+        novaTelaRemoverUser.setLayout(new BorderLayout());
+        novaTelaRemoverUser.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

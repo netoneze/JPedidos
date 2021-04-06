@@ -197,7 +197,6 @@ public class UsuarioDAO {
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
-            conexao.setAutoCommit(false);
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, user.getUsuarioId());

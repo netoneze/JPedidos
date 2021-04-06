@@ -33,7 +33,6 @@ public class UsuarioDAO {
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
-            conexao.setAutoCommit(false);
 
             String sql = "select * from usuario where login = ? and senha = ?";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
@@ -110,7 +109,7 @@ public class UsuarioDAO {
         String sql = "select * from usuario";
         try {
             JDBCUtil.init(configArquivo);
-            conexao = JDBCUtil.getConnection();
+            conexao = JDBCUtil.getConnection();         
             conexao.setAutoCommit(false);
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -149,7 +148,6 @@ public class UsuarioDAO {
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
-            conexao.setAutoCommit(false);
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, user.getUsuarioId());
@@ -170,7 +168,6 @@ public class UsuarioDAO {
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
-            conexao.setAutoCommit(false);
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, user.getUsuarioNome());

@@ -5,6 +5,8 @@
  */
 package Views.Funcionario;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author yohan
@@ -16,6 +18,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
      */
     public RegistrarPedido() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -41,7 +44,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btn_voltar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -135,10 +138,10 @@ public class RegistrarPedido extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Registrar Pedido");
 
-        jButton3.setText("Voltar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_voltar.setText("Voltar");
+        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_voltarActionPerformed(evt);
             }
         });
 
@@ -162,7 +165,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,7 +178,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -188,9 +191,12 @@ public class RegistrarPedido extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
+        JPedidosFunc novaTelaFuncionario = new JPedidosFunc();
+        novaTelaFuncionario.setLayout(new BorderLayout());
+        novaTelaFuncionario.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_voltarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -235,8 +241,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_voltar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

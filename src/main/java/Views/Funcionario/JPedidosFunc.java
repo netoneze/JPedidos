@@ -5,6 +5,8 @@
  */
 package Views.Funcionario;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author yohan
@@ -16,6 +18,7 @@ public class JPedidosFunc extends javax.swing.JFrame {
      */
     public JPedidosFunc() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -28,9 +31,8 @@ public class JPedidosFunc extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_registrar = new javax.swing.JButton();
+        btn_listarpedido = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -39,38 +41,38 @@ public class JPedidosFunc extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(228, 255, 255));
 
-        jButton1.setText("Inserir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_registrar.setText("Registrar");
+        btn_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_registrarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Atualizar");
-
-        jButton3.setText("Remover");
+        btn_listarpedido.setText("Listar");
+        btn_listarpedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_listarpedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(175, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172))
+                .addContainerGap(259, Short.MAX_VALUE)
+                .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(btn_listarpedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(253, 253, 253))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_listarpedido, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(226, Short.MAX_VALUE))
         );
 
@@ -124,9 +126,19 @@ public class JPedidosFunc extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
+        RegistrarPedido novaTelaRegistrarPedido = new RegistrarPedido();
+        novaTelaRegistrarPedido.setLayout(new BorderLayout());
+        novaTelaRegistrarPedido.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_registrarActionPerformed
+
+    private void btn_listarpedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listarpedidoActionPerformed
+        ListarPedidos novaTelaListarPedido = new ListarPedidos();
+        novaTelaListarPedido.setLayout(new BorderLayout());
+        novaTelaListarPedido.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_listarpedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,9 +176,8 @@ public class JPedidosFunc extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btn_listarpedido;
+    private javax.swing.JButton btn_registrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

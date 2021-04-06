@@ -16,6 +16,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
      */
     public ConfirmarPedido() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

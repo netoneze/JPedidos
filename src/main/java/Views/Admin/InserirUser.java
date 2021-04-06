@@ -6,6 +6,7 @@
 package Views.Admin;
 
 import Controllers.UsuarioDAO;
+import Models.Usuario;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 
@@ -205,7 +206,7 @@ public class InserirUser extends javax.swing.JFrame {
         } else if (usuarioDAO.verificaSeEmailExiste(email) || usuarioDAO.verificaSeLoginExiste(login)) {
             JOptionPane.showMessageDialog(null, "Este usuário já existe!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-            Models.Usuario usuario = new Models.Usuario();
+            Usuario usuario = new Usuario();
             
             usuario.setUsuarioNome(nome);
             usuario.setUsuarioLogin(login);

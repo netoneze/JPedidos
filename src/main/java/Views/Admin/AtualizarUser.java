@@ -5,22 +5,114 @@
  */
 package Views.Admin;
 
+import Controllers.UsuarioDAO;
+import Models.Usuario;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author yohan
  */
 public class AtualizarUser extends javax.swing.JFrame {
-
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    
     /**
      * Creates new form AtualizarUser
      */
     public AtualizarUser() {
         initComponents();
+        this.atualizaTabelaUsuario("init");
         setLocationRelativeTo(null);
     }
 
+    public void atualizaTabelaUsuario(String mode) {
+        DefaultTableModel model = (DefaultTableModel) tbl_usuarios.getModel();
+
+        ArrayList<Usuario> listaUsuarios = usuarioDAO.listaUsuario();
+
+        model.setRowCount(0);
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            model.addRow(new Object[]{
+                listaUsuarios.get(i).getUsuarioId(),
+                listaUsuarios.get(i).getUsuarioNome(),
+                listaUsuarios.get(i).getUsuarioEmail(),
+                listaUsuarios.get(i).getUsuarioLogin(),
+                listaUsuarios.get(i).getUsuarioTipo()
+            });
+        }
+        
+        listaUsuarios.clear();
+    }
+    
+    public int atualizaUsuario(String usuarioid, String nome, String email, String login, String tipo){
+
+        String senha = "";
+        boolean temDadoInvalido = false;
+        ArrayList<Usuario> listaUsuarios = usuarioDAO.listaUsuario();
+
+        if ((!tipo.equals("gerente") && !tipo.equals("administrador") && !tipo.equals("funcionario"))) {
+            listaUsuarios.clear();
+            this.atualizaTabelaUsuario("update");
+            return 0;
+        } else if (nome.equals("") || email.equals("") || login.equals("")) {
+            listaUsuarios.clear();
+            this.atualizaTabelaUsuario("update");
+            return 1;
+        } else {
+            String LoginNoBanco = "";
+            String EmailNoBanco = "";
+
+            for (int i = 0; i < listaUsuarios.size(); i++) {
+                int userId = listaUsuarios.get(i).getUsuarioId();
+
+                if (userId == Integer.parseInt(usuarioid)) {
+                    senha = listaUsuarios.get(i).getUsuarioPassword();
+                    LoginNoBanco = listaUsuarios.get(i).getUsuarioLogin();
+                    EmailNoBanco = listaUsuarios.get(i).getUsuarioEmail();
+                    break;
+                }
+            }
+            
+            if (!LoginNoBanco.equals(login)) {
+                if (usuarioDAO.verificaSeLoginExiste(login)) {
+                    temDadoInvalido = true;
+                }
+            }
+
+            if (!EmailNoBanco.equals(email)) {
+                if (usuarioDAO.verificaSeEmailExiste(email)) {
+                    temDadoInvalido = true;
+                }
+            }
+
+            if (temDadoInvalido) {
+                listaUsuarios.clear();
+                this.atualizaTabelaUsuario("update");
+                return 2;
+            } else {
+                Usuario usuario = new Usuario(
+                    Integer.parseInt(usuarioid),
+                    nome,
+                    login,
+                    senha,
+                    email,
+                    tipo.toLowerCase()
+                );
+                listaUsuarios.clear();
+
+                usuarioDAO.alterarUsuario(usuario);
+                this.atualizaTabelaUsuario("update");
+                return 3;
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,11 +125,11 @@ public class AtualizarUser extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbl_usuarios = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_atualizar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,43 +148,30 @@ public class AtualizarUser extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(228, 255, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_usuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Yohan Duarte", "yohan", "***", "Admin"},
-                {"Nelson Toneze", "nelson", "***", "Admin"},
-                {"Joao Almeida", "joao", "***", "Gerente"},
-                {"Pedro Henrique Costa", "phenrique", "***", "Funcionario"}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nome Completo", "Nome de usuário", "Senha", "Tipo de usuário"
+                "ID", "Nome", "Email", "Login", "Tipo"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jTable2.setSurrendersFocusOnKeystroke(true);
-        jScrollPane2.setViewportView(jTable2);
+        ));
+        jScrollPane3.setViewportView(tbl_usuarios);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -106,11 +185,11 @@ public class AtualizarUser extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_atualizar.setBackground(new java.awt.Color(51, 153, 255));
+        btn_atualizar.setText("Salvar");
+        btn_atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_atualizarActionPerformed(evt);
             }
         });
 
@@ -128,7 +207,7 @@ public class AtualizarUser extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(384, 384, 384)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(367, 367, 367)
                         .addComponent(jLabel2)))
@@ -144,7 +223,7 @@ public class AtualizarUser extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
 
@@ -158,9 +237,31 @@ public class AtualizarUser extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
+        int row = tbl_usuarios.getSelectedRow();
+        String id = tbl_usuarios.getValueAt(row, 0).toString();
+        String name = tbl_usuarios.getValueAt(row, 1).toString();
+        String email = tbl_usuarios.getValueAt(row, 2).toString();
+        String username = tbl_usuarios.getValueAt(row, 3).toString();
+        String role = tbl_usuarios.getValueAt(row, 4).toString();
+
+        switch(this.atualizaUsuario(id, name, email, username, role)){
+            case 0:
+                JOptionPane.showMessageDialog(null, "Tipo invalido! Tipos permitidos: administrador, funcionario, gerente", "Tipo invalido", JOptionPane.ERROR_MESSAGE);
+                break;
+
+            case 1:
+                JOptionPane.showMessageDialog(null, "Alguns campos estão com problemas!", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
+                break;
+
+            case 2:
+                JOptionPane.showMessageDialog(null, "Este usuário já existe!", "Erro", JOptionPane.ERROR_MESSAGE);
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "Usuario atualizado!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btn_atualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,13 +299,13 @@ public class AtualizarUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_voltar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tbl_usuarios;
     // End of variables declaration//GEN-END:variables
 }

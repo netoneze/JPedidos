@@ -27,6 +27,7 @@ public class JPedidosLogin extends javax.swing.JFrame {
      */
     public JPedidosLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public void CuidaLogin() {

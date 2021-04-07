@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import Views.Admin.Admin;
 import Models.Usuario;
 import Controllers.UsuarioDAO;
+import Views.Funcionario.JPedidosFunc;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -47,6 +48,13 @@ public class JPedidosLogin extends javax.swing.JFrame {
 
                 novaTelaAdmin.setLayout(new BorderLayout());
                 novaTelaAdmin.setVisible(true);
+                this.dispose();
+            }
+            if (resposta.getUsuarioTipo().equals("funcionario")) {
+                String usuarioId = String.valueOf(resposta.getUsuarioId());
+                JPedidosFunc novaTelaFuncionario = new JPedidosFunc(usuarioId);
+                novaTelaFuncionario.setLayout(new BorderLayout());
+                novaTelaFuncionario.setVisible(true);
                 this.dispose();
             }
         } else {

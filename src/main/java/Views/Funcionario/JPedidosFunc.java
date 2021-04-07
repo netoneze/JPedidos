@@ -12,11 +12,13 @@ import java.awt.BorderLayout;
  * @author yohan
  */
 public class JPedidosFunc extends javax.swing.JFrame {
-
+    private String usuarioId = "";
+    
     /**
      * Creates new form JPedidosFunc
      */
-    public JPedidosFunc() {
+    public JPedidosFunc(String usuarioId) {
+        this.usuarioId = usuarioId;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -127,14 +129,14 @@ public class JPedidosFunc extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
-        RegistrarPedido novaTelaRegistrarPedido = new RegistrarPedido();
+        RegistrarPedido novaTelaRegistrarPedido = new RegistrarPedido(usuarioId);
         novaTelaRegistrarPedido.setLayout(new BorderLayout());
         novaTelaRegistrarPedido.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void btn_listarpedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listarpedidoActionPerformed
-        ListarPedidos novaTelaListarPedido = new ListarPedidos();
+        ListarPedidos novaTelaListarPedido = new ListarPedidos(usuarioId);
         novaTelaListarPedido.setLayout(new BorderLayout());
         novaTelaListarPedido.setVisible(true);
         this.dispose();
@@ -170,7 +172,6 @@ public class JPedidosFunc extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JPedidosFunc().setVisible(true);
             }
         });
     }

@@ -12,11 +12,13 @@ import java.awt.BorderLayout;
  * @author yohan
  */
 public class ListarPedidos extends javax.swing.JFrame {
-
+    private String usuarioId = "";
+    
     /**
      * Creates new form ListarPedido
      */
-    public ListarPedidos() {
+    public ListarPedidos(String usuarioId) {
+        this.usuarioId = usuarioId;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -122,7 +124,7 @@ public class ListarPedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
-        JPedidosFunc novaTelaFuncionario = new JPedidosFunc();
+        JPedidosFunc novaTelaFuncionario = new JPedidosFunc(usuarioId);
         novaTelaFuncionario.setLayout(new BorderLayout());
         novaTelaFuncionario.setVisible(true);
         this.dispose();
@@ -150,7 +152,6 @@ public class ListarPedidos extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new ListarPedidos().setVisible(true);
         });
     }
 

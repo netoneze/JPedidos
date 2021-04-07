@@ -10,9 +10,17 @@ import Controllers.ProdutoDAO;
 import Models.Pedido;
 import Models.Produto;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +41,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
     public RegistrarPedido(String usuarioId) {
         this.usuarioId = usuarioId;
         initComponents();
+        insereProdutoCombox(productsList);
         setLocationRelativeTo(null);
     }
 
@@ -48,6 +57,15 @@ public class RegistrarPedido extends javax.swing.JFrame {
         }
        
         return total;
+    }
+    
+    public void insereProdutoCombox(ArrayList<Produto> productsList) {
+        if (productsList.size() > 0) {
+            for (int i = 0; i < productsList.size(); i++) {
+                jComboBoxTipoProduto.addItem(productsList.get(i).getProdutoNome());
+                
+            }
+        }
     }
     
     /**
@@ -70,6 +88,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
         jComboBoxTipoProduto = new javax.swing.JComboBox<>();
         jSpinnerQuantidade = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        label_preco = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -101,7 +121,11 @@ public class RegistrarPedido extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Quantidade:");
 
-        jComboBoxTipoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTipoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTipoProdutoActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Adicionar Nome/Telefone");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -110,40 +134,46 @@ public class RegistrarPedido extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel12.setText("Preço Unitário:");
+
+        label_preco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        label_preco.setText("66");
+
         javax.swing.GroupLayout JpanelLayout = new javax.swing.GroupLayout(Jpanel);
         Jpanel.setLayout(JpanelLayout);
         JpanelLayout.setHorizontalGroup(
             JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(104, 104, 104)
+                        .addComponent(jButton2)
+                        .addGap(0, 94, Short.MAX_VALUE))
                     .addGroup(JpanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(field_nomecliente)
+                            .addComponent(field_telefonecliente, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(JpanelLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(65, 65, 65)
-                                .addComponent(jSpinnerQuantidade))
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxTipoProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(JpanelLayout.createSequentialGroup()
                                 .addGroup(JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(JpanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jComboBoxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel4))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel1))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(field_telefonecliente, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())))
-            .addGroup(JpanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(field_nomecliente)
+                            .addGroup(JpanelLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinnerQuantidade))))
+                    .addGroup(JpanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label_preco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(JpanelLayout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         JpanelLayout.setVerticalGroup(
             JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,15 +188,19 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 .addComponent(field_telefonecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(label_preco))
+                .addGap(18, 18, 18)
                 .addGroup(JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jComboBoxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(JpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jSpinnerQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49))
+                .addGap(23, 23, 23))
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -255,7 +289,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -298,6 +332,10 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBoxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoProdutoActionPerformed
+        label_preco.setText(String.valueOf(productsList.get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco()));
+    }//GEN-LAST:event_jComboBoxTipoProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,6 +387,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -360,6 +399,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQuantidade;
+    private javax.swing.JLabel label_preco;
     private javax.swing.JTable tbl_pedidos;
     // End of variables declaration//GEN-END:variables
 }

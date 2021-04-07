@@ -9,6 +9,7 @@ import Controllers.PedidoDAO;
 import Controllers.ProdutoDAO;
 import Models.Pedido;
 import Models.Produto;
+import Models.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -34,6 +35,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
     PedidoDAO orderController = new PedidoDAO();
     ArrayList<Produto> productsList = productController.listaProdutos();
     private String usuarioId = "";
+    DefaultTableModel model;
+    private int linha = 0;
     
     /**
      * Creates new form RegistrarProduct
@@ -43,6 +46,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         initComponents();
         insereProdutoCombox(productsList);
         setLocationRelativeTo(null);
+        this.model = (DefaultTableModel) tbl_pedidos.getModel();
     }
 
     public float calculaPrecoTotal() {
@@ -63,9 +67,18 @@ public class RegistrarPedido extends javax.swing.JFrame {
         if (productsList.size() > 0) {
             for (int i = 0; i < productsList.size(); i++) {
                 jComboBoxTipoProduto.addItem(productsList.get(i).getProdutoNome());
-                
             }
         }
+    }
+    
+    public void adicionaNaTabela(String mode) {
+        String tipo = productsList.get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoNome();
+        Float preco = productsList.get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco();
+        int quantidade = (int) jSpinnerQuantidade.getValue();
+        float valor = quantidade * preco;
+        model.setValueAt(tipo, linha, 0);
+        model.setValueAt(quantidade, linha, 1);
+        model.setValueAt(valor, linha, 2);
     }
     
     /**
@@ -99,8 +112,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        label_nome = new javax.swing.JLabel();
+        label_telefone = new javax.swing.JLabel();
         btn_adicionar = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -227,6 +240,20 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null}
             },
             new String [] {
@@ -241,12 +268,17 @@ public class RegistrarPedido extends javax.swing.JFrame {
 
         jLabel8.setText("Total: 119");
 
-        jLabel10.setText("Fulano");
-        jLabel10.setToolTipText("");
+        label_nome.setText("Fulano");
+        label_nome.setToolTipText("");
 
-        jLabel11.setText("666");
+        label_telefone.setText("666");
 
         btn_adicionar.setText("Adicionar");
+        btn_adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adicionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -263,13 +295,13 @@ public class RegistrarPedido extends javax.swing.JFrame {
                         .addGap(400, 400, 400)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
+                        .addComponent(label_nome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addGap(118, 118, 118)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)))
+                        .addComponent(label_telefone)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
@@ -302,8 +334,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel6)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
+                            .addComponent(label_nome)
+                            .addComponent(label_telefone))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -336,6 +368,11 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private void jComboBoxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoProdutoActionPerformed
         label_preco.setText(String.valueOf(productsList.get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco()));
     }//GEN-LAST:event_jComboBoxTipoProdutoActionPerformed
+
+    private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
+        this.adicionaNaTabela("update");
+        linha++;
+    }//GEN-LAST:event_btn_adicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,8 +422,6 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBoxTipoProduto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -399,7 +434,9 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQuantidade;
+    private javax.swing.JLabel label_nome;
     private javax.swing.JLabel label_preco;
+    private javax.swing.JLabel label_telefone;
     private javax.swing.JTable tbl_pedidos;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,7 +30,7 @@ public class ProdutoDAO {
     ArrayList<Produto> lista = new ArrayList<>();
     
     public ArrayList<Produto> listaProdutos() {
-        sql = "select * from produtos";
+        sql = "select * from produto";
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();

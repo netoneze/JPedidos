@@ -7,6 +7,7 @@ package Views.Funcionario;
 
 import Controllers.PedidoDAO;
 import Models.Pedido;
+import Views.Gerente.JPedidosGer;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -17,12 +18,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListarPedidos extends javax.swing.JFrame {
     private String usuarioId = "";
+    private String tipoUsuario = "";
     PedidoDAO pedidoDAO = new PedidoDAO();
     /**
      * Creates new form ListarPedido
      */
-    public ListarPedidos(String usuarioId) {
+    public ListarPedidos(String usuarioId, String tipoUsuario) {
         this.usuarioId = usuarioId;
+        this.tipoUsuario = tipoUsuario;
         initComponents();
         atualizaTabelaPedido("init");
         setLocationRelativeTo(null);
@@ -152,10 +155,19 @@ public class ListarPedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
-        JPedidosFunc novaTelaFuncionario = new JPedidosFunc(usuarioId);
-        novaTelaFuncionario.setLayout(new BorderLayout());
-        novaTelaFuncionario.setVisible(true);
-        this.dispose();
+        if ("funcionario".equals(tipoUsuario)){
+            JPedidosFunc novaTelaFuncionario = new JPedidosFunc(usuarioId);
+            novaTelaFuncionario.setLayout(new BorderLayout());
+            novaTelaFuncionario.setVisible(true);
+            this.dispose();
+        }
+        else if ("gerente".equals(tipoUsuario)){
+            JPedidosGer novaTelaGerente = new JPedidosGer(usuarioId);
+            novaTelaGerente.setLayout(new BorderLayout());
+            novaTelaGerente.setVisible(true);
+            this.dispose();
+        }
+            
     }//GEN-LAST:event_btn_voltarActionPerformed
 
     /**

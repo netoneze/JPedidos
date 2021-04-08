@@ -136,7 +136,7 @@ public class JPedidosFunc extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void btn_listarpedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listarpedidoActionPerformed
-        ListarPedidos novaTelaListarPedido = new ListarPedidos(usuarioId);
+        ListarPedidos novaTelaListarPedido = new ListarPedidos(usuarioId, "funcionario");
         novaTelaListarPedido.setLayout(new BorderLayout());
         novaTelaListarPedido.setVisible(true);
         this.dispose();

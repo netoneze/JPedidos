@@ -433,8 +433,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
             ItensUI(true, true, true, true, true);
         } else {
             Pedido pedido = new Pedido();
-            
-            // order.setOrder_amount(1);
+           
             pedido.setPedidoNomeCliente(nomeCliente);
             pedido.setPedidoTelefoneCliente(telefoneCliente);
             pedido.setPedidoTotal(total);
@@ -443,8 +442,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
             orderController.criaPedido(pedido, selectedProducts);
             JOptionPane.showMessageDialog(
                 null,
-                "The order was successfully saved!",
-                "Done!",
+                "Pedido salvo com sucesso!",
+                "Sucesso",
                 JOptionPane.PLAIN_MESSAGE
             );
             

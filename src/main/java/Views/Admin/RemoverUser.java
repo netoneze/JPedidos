@@ -162,10 +162,13 @@ public class RemoverUser extends javax.swing.JFrame {
     private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
         int row = tbl_usuarios.getSelectedRow();
         String id = tbl_usuarios.getValueAt(row, 0).toString();
-        
+        String nome = tbl_usuarios.getValueAt(row, 1).toString();
+        String email = tbl_usuarios.getValueAt(row, 2).toString();
         Usuario usuario = new Usuario();
         
         usuario.setUsuarioId(Integer.parseInt(id));
+        usuario.setUsuarioEmail(email);
+        usuario.setUsuarioNome(nome);
         
         usuarioDAO.deletarUsuario(usuario);
         this.atualizaTabelaUsuario("delete");

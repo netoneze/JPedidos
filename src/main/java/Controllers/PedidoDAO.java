@@ -35,12 +35,17 @@ public class PedidoDAO {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
 
-            sql = "insert into pedido(nomeCliente, telefoneCliente, usuarioid, valorTotal) values(?, ?, ?, ?)";
+            java.sql.Timestamp hoje;
+            hoje = new java.sql.Timestamp(new java.util.Date().getTime());
+            
+            sql = "insert into pedido(nomeCliente, telefoneCliente, usuarioid, valorTotal, pedidoStatus, criadoEm) values(?, ?, ?, ?, ?, ?)";
             preparedStatement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, pedido.getPedidoNomeCliente());
             preparedStatement.setString(2, pedido.getPedidoTelefoneCliente());
             preparedStatement.setInt(3, pedido.getUsuarioId());
             preparedStatement.setFloat(4, pedido.getPedidoTotal());
+            preparedStatement.setString(5, "aberto");
+            preparedStatement.setTimestamp(6, hoje);
             preparedStatement.execute();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();

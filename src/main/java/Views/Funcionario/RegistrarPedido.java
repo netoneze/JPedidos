@@ -23,7 +23,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
     PedidoDAO orderController = new PedidoDAO();
     ArrayList<Produto> productsList = productController.listaProdutos();
     ArrayList<Produto> selectedProducts = new ArrayList<Produto>();
-    private String usuarioId = "";
+    private static String usuarioId = "";
     DefaultTableModel model;
     private int linha = 0;
     
@@ -505,7 +505,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+                new RegistrarPedido(usuarioId).setVisible(true);
             }
         });
     }

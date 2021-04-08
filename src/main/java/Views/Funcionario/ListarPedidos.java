@@ -17,8 +17,8 @@ import javax.swing.table.DefaultTableModel;
  * @author yohan
  */
 public class ListarPedidos extends javax.swing.JFrame {
-    private String usuarioId = "";
-    private String tipoUsuario = "";
+    private static String usuarioId = "";
+    private static String tipoUsuario = "";
     PedidoDAO pedidoDAO = new PedidoDAO();
     /**
      * Creates new form ListarPedido
@@ -191,7 +191,10 @@ public class ListarPedidos extends javax.swing.JFrame {
         }
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListarPedidos(usuarioId, tipoUsuario).setVisible(true);
+            }
         });
     }
 

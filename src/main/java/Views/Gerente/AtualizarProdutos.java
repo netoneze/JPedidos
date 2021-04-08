@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author yohan
  */
 public class AtualizarProdutos extends javax.swing.JFrame {
-    private String usuarioId = "";
+    private static String usuarioId = "";
     ProdutoDAO produtoDAO = new ProdutoDAO();
     
     /**
@@ -232,7 +232,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
+               new AtualizarProdutos(usuarioId).setVisible(true);
             }
         });
     }

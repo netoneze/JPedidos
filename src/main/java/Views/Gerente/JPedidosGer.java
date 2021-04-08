@@ -12,7 +12,7 @@ import Views.Funcionario.ListarPedidos;
  * @author yohan
  */
 public class JPedidosGer extends javax.swing.JFrame {
-    private String usuarioId = "";
+    private static String usuarioId = "";
     
     /**
      * Creates new form JPedidosGer
@@ -242,7 +242,7 @@ public class JPedidosGer extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                
+                new JPedidosGer(usuarioId).setVisible(true);
             }
         });
     }

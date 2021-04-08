@@ -12,7 +12,7 @@ import java.awt.BorderLayout;
  * @author yohan
  */
 public class JPedidosFunc extends javax.swing.JFrame {
-    private String usuarioId = "";
+    private static String usuarioId = "";
     
     /**
      * Creates new form JPedidosFunc
@@ -172,6 +172,7 @@ public class JPedidosFunc extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                new JPedidosFunc(usuarioId).setVisible(true);
             }
         });
     }

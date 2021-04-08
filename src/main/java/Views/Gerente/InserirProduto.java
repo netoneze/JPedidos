@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author yohan
  */
 public class InserirProduto extends javax.swing.JFrame {
-    private String usuarioId = "";
+    private static String usuarioId = "";
     ProdutoDAO produtoDAO = new ProdutoDAO();
     
     /**
@@ -246,7 +246,7 @@ public class InserirProduto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+                new InserirProduto(usuarioId).setVisible(true);
             }
         });
     }

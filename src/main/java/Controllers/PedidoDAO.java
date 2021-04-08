@@ -34,7 +34,6 @@ public class PedidoDAO {
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
-            conexao.setAutoCommit(false);
 
             sql = "insert into pedido(nomeCliente, telefoneCliente, usuarioid, valorTotal) values(?, ?, ?, ?)";
             preparedStatement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

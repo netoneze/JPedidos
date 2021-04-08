@@ -29,6 +29,7 @@ public class PedidoDAO {
     String sql;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
+    ArrayList<Pedido> lista = new ArrayList<>();
     
     public void criaPedido(Pedido pedido, ArrayList<Produto> listaDeProduto){
         try {
@@ -43,7 +44,7 @@ public class PedidoDAO {
             preparedStatement.setString(1, pedido.getPedidoNomeCliente());
             preparedStatement.setString(2, pedido.getPedidoTelefoneCliente());
             preparedStatement.setInt(3, pedido.getUsuarioId());
-            preparedStatement.setFloat(4, pedido.getPedidoTotal());
+            preparedStatement.setFloat(4, pedido.getValorTotal());
             preparedStatement.setString(5, "aberto");
             preparedStatement.setTimestamp(6, hoje);
             preparedStatement.execute();
@@ -71,6 +72,41 @@ public class PedidoDAO {
             System.out.println("Falha ao carregar o arquivo de configuração." + erro);
         } catch (SQLException erro) {
             System.out.println("Falha de conexao, no comando = " + erro);
+        }
+    }
+    
+    public ArrayList<Pedido> listaPedidos() {
+        String sql = "select * from pedido";
+        try {
+            JDBCUtil.init(configArquivo);
+            conexao = JDBCUtil.getConnection();
+
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setPedidoId(rs.getInt("idPedido"));
+                pedido.setPedidoStatus(rs.getString("pedidoStatus"));
+                pedido.setPedidoNomeCliente(rs.getString("nomeCliente"));
+                pedido.setPedidoTelefoneCliente(rs.getString("telefoneCliente"));
+                pedido.setPedidoId(rs.getInt("usuarioId"));
+                pedido.setPedidoTotal(rs.getFloat("valorTotal"));
+
+                lista.add(pedido);
+            }
+
+            return lista;
+
+        } catch (ClassNotFoundException erro) {
+            System.out.println("Falha ao carregar o driver JDBC." + erro);
+            return null;
+        } catch (IOException erro) {
+            System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            return null;
+        } catch (SQLException erro) {
+            System.out.println("Falha no comando sql = " + erro);
+            return null;
         }
     }
 }

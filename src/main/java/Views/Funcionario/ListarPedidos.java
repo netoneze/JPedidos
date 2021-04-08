@@ -5,7 +5,11 @@
  */
 package Views.Funcionario;
 
+import Controllers.PedidoDAO;
+import Models.Pedido;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,14 +17,37 @@ import java.awt.BorderLayout;
  */
 public class ListarPedidos extends javax.swing.JFrame {
     private String usuarioId = "";
-    
+    PedidoDAO pedidoDAO = new PedidoDAO();
     /**
      * Creates new form ListarPedido
      */
     public ListarPedidos(String usuarioId) {
         this.usuarioId = usuarioId;
         initComponents();
+        atualizaTabelaPedido("init");
         setLocationRelativeTo(null);
+    }
+    
+    public void atualizaTabelaPedido(String mode) {
+        DefaultTableModel model = (DefaultTableModel) tbl_pedidos.getModel();
+
+        ArrayList<Pedido> listaPedidos = pedidoDAO.listaPedidos();
+        
+        model.setRowCount(0);
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+
+        for (int i = 0; i < listaPedidos.size(); i++) {
+            model.addRow(new Object[]{
+                listaPedidos.get(i).getPedidoId(),
+                listaPedidos.get(i).getPedidoNomeCliente(),
+                listaPedidos.get(i).getPedidoTelefoneCliente(),
+                listaPedidos.get(i).getValorTotal(),
+                listaPedidos.get(i).getPedidoStatus()
+            });
+        }
+
+        listaPedidos.clear();
     }
 
     /**
@@ -33,8 +60,8 @@ public class ListarPedidos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_pedidos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
 
@@ -42,41 +69,42 @@ public class ListarPedidos extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(228, 255, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_pedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "Nelson Piquet", "16:50", "Atendido"},
-                { new Integer(2), "Carlos Henrique", "17:30", "Não Atentido"}
+
             },
             new String [] {
-                "Número", "Nome", "Horário", "Status"
+                "ID", "Nome", "Telefone", "Total", "Status "
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, true
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jTable2.setSurrendersFocusOnKeystroke(true);
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane1.setViewportView(tbl_pedidos);
+        if (tbl_pedidos.getColumnModel().getColumnCount() > 0) {
+            tbl_pedidos.getColumnModel().getColumn(0).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(1).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(2).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(3).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -111,7 +139,7 @@ public class ListarPedidos extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -159,7 +187,7 @@ public class ListarPedidos extends javax.swing.JFrame {
     private javax.swing.JButton btn_voltar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbl_pedidos;
     // End of variables declaration//GEN-END:variables
 }

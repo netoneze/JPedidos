@@ -12,51 +12,46 @@ package Models;
 public class Pedido {
 
     /**
-     * @return the order_total
-     */
-    public float getPedidoTotal() {
-        return valorTotal;
-    }
-
-    /**
      * @param valorTotal valor total do pedido set
      */
     public void setPedidoTotal(float valorTotal) {
-        this.valorTotal = valorTotal;
+        this.setValorTotal(valorTotal);
     }
     private int idPedido;
-    private int pedidoQuantidade;
     private String nomeCliente;
     private String telefoneCliente;
     private int usuarioid;
     private float valorTotal;
+    private String pedidoStatus;
+    private String criadoEm;
+    private String fechadoEm;
     
     public Pedido(){
     }
     
-    public Pedido(int id, int quantidade, String nomeCliente, String telefoneCliente, int usuarioid){
+    public Pedido(int id, String nomeCliente, String telefoneCliente, int usuarioid, String pedidoStatus, String criadoEm, String fechadoEm){
         this.idPedido = id;
-        this.pedidoQuantidade = quantidade;
         this.nomeCliente = nomeCliente;
         this.telefoneCliente = telefoneCliente;
         this.usuarioid = usuarioid;
+        this.pedidoStatus = pedidoStatus;
+        this.criadoEm = criadoEm;
+        this.fechadoEm = fechadoEm;
     }
     
     public String toString() {
-        String resposta = this.getPedidoId()        + "\n";
-        resposta += this.getPedidoQuantidade()          + "\n";
-        resposta += this.getPedidoNomeCliente()   + "\n";
-        resposta += this.getPedidoTelefoneCliente()  + "\n";
-        resposta += this.getUsuarioId()               + "\n";
+        String resposta = this.getPedidoId() + "\n";
+        resposta += this.getPedidoNomeCliente() + "\n";
+        resposta += this.getPedidoTelefoneCliente() + "\n";
+        resposta += this.getUsuarioId() + "\n";
+        resposta += this.getPedidoStatus() + "\n";
+        resposta += this.getCriadoEm() + "\n";
+        resposta += this.getFechadoEm() + "\n";
         return resposta;
     }
 
     public int getPedidoId() {
         return idPedido;
-    }
-
-    public int getPedidoQuantidade() {
-        return pedidoQuantidade;
     }
 
     public String getPedidoNomeCliente() {
@@ -70,13 +65,9 @@ public class Pedido {
     public int getUsuarioId() {
         return usuarioid;
     }
-
+    
     public void setPedidoId(int idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public void setPedidoQuantidade(int pedidoQuantidade) {
-        this.pedidoQuantidade = pedidoQuantidade;
     }
 
     public void setPedidoNomeCliente(String nomeCliente) {
@@ -89,6 +80,38 @@ public class Pedido {
 
     public void setUsuarioId(int usuarioid) {
         this.usuarioid = usuarioid;
+    }
+
+    public String getPedidoStatus() {
+        return pedidoStatus;
+    }
+
+    public void setPedidoStatus(String pedidoStatus) {
+        this.pedidoStatus = pedidoStatus;
+    }
+
+    public String getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(String criadoEm) {
+        this.criadoEm = criadoEm;
+    }
+
+    public String getFechadoEm() {
+        return fechadoEm;
+    }
+
+    public void setFechadoEm(String fechadoEm) {
+        this.fechadoEm = fechadoEm;
+    }
+
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
     }
     
     

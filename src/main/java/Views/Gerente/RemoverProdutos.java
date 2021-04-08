@@ -5,8 +5,13 @@
  */
 package Views.Gerente;
 
-import Views.Funcionario.JPedidosFunc;
+import Controllers.ProdutoDAO;
+import Models.Produto;
+import Models.Usuario;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,16 +19,40 @@ import java.awt.BorderLayout;
  */
 public class RemoverProdutos extends javax.swing.JFrame {
     private String usuarioId = "";
+    ProdutoDAO produtoDAO = new ProdutoDAO();
+    
     
     /**
      * Creates new form RemoverProdutos
      */
     public RemoverProdutos(String usuarioId) {
         initComponents();
+        this.atualizaTabelaProdutos("init");
         setLocationRelativeTo(null);
         this.usuarioId = usuarioId;
     }
 
+    public void atualizaTabelaProdutos(String mode) {
+        DefaultTableModel model = (DefaultTableModel) tbl_produtos.getModel();
+        
+        ArrayList<Produto> listaProdutos = produtoDAO.listaProdutos();
+        
+        model.setRowCount(0);
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            model.addRow(new Object[]{
+                listaProdutos.get(i).getProdudoId(),
+                listaProdutos.get(i).getProdutoNome(),
+                listaProdutos.get(i).getProdutoDescricao(),
+                listaProdutos.get(i).getProdutoPreco(),
+            });
+        }
+
+        listaProdutos.clear();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,8 +64,8 @@ public class RemoverProdutos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tbl_produtos = new javax.swing.JTable();
+        btn_remover = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
 
@@ -44,24 +73,24 @@ public class RemoverProdutos extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(228, 255, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"X-Tudo", "Pão, carne, queijo, salada, molho especial, calabresa, ovo, batata...",  new Float(12.0)}
+
             },
             new String [] {
-                "Nome curto", "Descrição", "Preço unitário"
+                "ID", "Nome ", "Descrição", "Preço "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable2.setSurrendersFocusOnKeystroke(true);
-        jScrollPane2.setViewportView(jTable2);
+        tbl_produtos.setSurrendersFocusOnKeystroke(true);
+        jScrollPane2.setViewportView(tbl_produtos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,8 +109,13 @@ public class RemoverProdutos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setBackground(new java.awt.Color(255, 58, 58));
-        jButton1.setText("Remover");
+        btn_remover.setBackground(new java.awt.Color(255, 58, 58));
+        btn_remover.setText("Remover");
+        btn_remover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removerActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,7 +134,7 @@ public class RemoverProdutos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(386, 386, 386))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +159,7 @@ public class RemoverProdutos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
@@ -138,6 +172,23 @@ public class RemoverProdutos extends javax.swing.JFrame {
         novaTelaGerente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
+
+    private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
+        int row = tbl_produtos.getSelectedRow();
+        int id = Integer.valueOf(tbl_produtos.getValueAt(row, 0).toString());
+        String nome = tbl_produtos.getValueAt(row, 1).toString();
+        String descricao = tbl_produtos.getValueAt(row, 2).toString();
+   
+        Produto produto = new Produto();
+        
+        produto.setProdutoId(id);
+        produto.setProdutoNome(nome);
+        produto.setProdutoDescricao(descricao);
+        
+        produtoDAO.deletaProduto(produto);
+        this.atualizaTabelaProdutos("delete");
+        JOptionPane.showMessageDialog(null, "O produto foi deletado!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_btn_removerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,11 +226,11 @@ public class RemoverProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_remover;
     private javax.swing.JButton btn_voltar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tbl_produtos;
     // End of variables declaration//GEN-END:variables
 }

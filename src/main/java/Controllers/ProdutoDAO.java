@@ -30,12 +30,11 @@ public class ProdutoDAO {
     ArrayList<Produto> lista = new ArrayList<>();
     
     public ArrayList<Produto> listaProdutos() {
-        sql = "select * from produto";
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
             conexao.setAutoCommit(false);
-
+            sql = "select * from produto";
             preparedStatement = conexao.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
 
@@ -63,14 +62,12 @@ public class ProdutoDAO {
         }
     }
     
-    public int criaProduto(Produto produto){
-        sql = "insert into produto (nome, descricao, precoUnid) values (?,?,?)";
-        
+    public boolean criaProduto(Produto produto){
         if(produto.getProdutoNome()!= null && produto.getProdutoDescricao()!= null){
             try {
                 JDBCUtil.init(configArquivo);
                 conexao = JDBCUtil.getConnection();
-                
+                sql = "insert into produto (nome, descricao, precoUnid) values (?,?,?)";
                 PreparedStatement pstm = conexao.prepareStatement(sql);
                 pstm.setString(1, produto.getProdutoNome());
                 pstm.setString(2, produto.getProdutoDescricao());
@@ -86,21 +83,18 @@ public class ProdutoDAO {
             } catch (SQLException erro) {
                 System.out.println("Falha no comando sql = " + erro);
             }
-        } else{
-            return 1;
+        } else {
+            return false;
         }
-        return 0;
+        return true;
     }
     
-    public int atualizaProduto(Produto produto) {
-        
-        sql = "update produto set nome = ?, descricao = ?, precoUnid = ? where produtoId = ?";
-        
+    public boolean atualizaProduto(Produto produto) {
         if(produto.getProdutoNome()!= null && produto.getProdutoDescricao()!= null){
             try {
                 JDBCUtil.init(configArquivo);
                 conexao = JDBCUtil.getConnection();
-                
+                sql = "update produto set nome = ?, descricao = ?, precoUnid = ? where produtoId = ?";
                 PreparedStatement pstm = conexao.prepareStatement(sql);
                 pstm.setString(1, produto.getProdutoNome());
                 pstm.setString(2, produto.getProdutoDescricao());
@@ -117,20 +111,18 @@ public class ProdutoDAO {
             } catch (SQLException erro) {
                 System.out.println("Falha no comando sql = " + erro);
             }
-        } else{
-            return 1;
+        } else {
+            return false;
         }
-        return 0;
+        return true;
     }
     
-    public int deletaProduto(Produto produto) {
-        String sql = "delete from produto where produtoId = ?";
-        
+    public boolean deletaProduto(Produto produto) {
         if(produto.getProdutoNome()!= null && produto.getProdutoDescricao()!= null){
             try {
                 JDBCUtil.init(configArquivo);
                 conexao = JDBCUtil.getConnection();
-                
+                String sql = "delete from produto where produtoId = ?";
                 PreparedStatement pstm = conexao.prepareStatement(sql);
                 pstm.setInt(1, produto.getProdudoId());
                 
@@ -144,9 +136,9 @@ public class ProdutoDAO {
             } catch (SQLException erro) {
                 System.out.println("Falha no comando sql = " + erro);
             }
-        } else{
-            return 1;
+        } else {
+            return false;
         }
-        return 0;
+        return true;
     }
 }

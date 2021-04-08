@@ -79,30 +79,33 @@ public class UsuarioDAO {
         return usuario2;
     }
 
-    public void criaUsuario(Usuario user) {
-        String sql = "insert into usuario (nome, login, senha, email, tipo) values(?,?,?,?,?)";
+    public boolean criaUsuario(Usuario user) {
+        if(user.getUsuarioNome() != null && user.getUsuarioEmail() != null){
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                String sql = "insert into usuario (nome, login, senha, email, tipo) values(?,?,?,?,?)";
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                pstm.setString(1, user.getUsuarioNome());
+                pstm.setString(2, user.getUsuarioLogin());
+                pstm.setString(3, user.getUsuarioPassword());
+                pstm.setString(4, user.getUsuarioEmail());
+                pstm.setString(5, user.getUsuarioTipo());
 
-        try {
-            JDBCUtil.init(configArquivo);
-            conexao = JDBCUtil.getConnection();
-            
-            PreparedStatement pstm = conexao.prepareStatement(sql);
-            pstm.setString(1, user.getUsuarioNome());
-            pstm.setString(2, user.getUsuarioLogin());
-            pstm.setString(3, user.getUsuarioPassword());
-            pstm.setString(4, user.getUsuarioEmail());
-            pstm.setString(5, user.getUsuarioTipo());
+                pstm.execute();
+                pstm.close();
 
-            pstm.execute();
-            pstm.close();
-
-        } catch (ClassNotFoundException erro) {
-            System.out.println("Falha ao carregar o driver JDBC." + erro);
-        } catch (IOException erro) {
-            System.out.println("Falha ao carregar o arquivo de configuração." + erro);
-        } catch (SQLException erro) {
-            System.out.println("Falha na conexao, comando sql = " + erro);
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha na conexao, comando sql = " + erro);
+            }
+        } else {
+            return false;
         }
+        return true;
     }
 
     public ArrayList<Usuario> listaUsuario() {
@@ -141,73 +144,77 @@ public class UsuarioDAO {
         }
     }
 
-    public void alterarUsuario(Usuario user) {
+    public boolean alterarUsuario(Usuario user) {
+        if(user.getUsuarioNome() != null && user.getUsuarioEmail() != null){
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                String sql = "select senha from usuario where usuarioid = ?";
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                pstm.setInt(1, user.getUsuarioId());
 
-        String sql = "select senha from usuario where usuarioid = ?";
+                pstm.execute();
+                pstm.close();
 
-        try {
-            JDBCUtil.init(configArquivo);
-            conexao = JDBCUtil.getConnection();
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha na conexao, comando sql = " + erro);
+            }
 
-            PreparedStatement pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, user.getUsuarioId());
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                String sql = "update usuario set nome = ?, login = ?, senha = ?, email = ?, tipo = ? where usuarioid = ?";
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                pstm.setString(1, user.getUsuarioNome());
+                pstm.setString(2, user.getUsuarioLogin());
+                pstm.setString(3, user.getUsuarioPassword());
+                pstm.setString(4, user.getUsuarioEmail());
+                pstm.setString(5, user.getUsuarioTipo());
+                pstm.setInt(6, user.getUsuarioId());
 
-            pstm.execute();
-            pstm.close();
+                pstm.execute();
+                pstm.close();
 
-        } catch (ClassNotFoundException erro) {
-            System.out.println("Falha ao carregar o driver JDBC." + erro);
-        } catch (IOException erro) {
-            System.out.println("Falha ao carregar o arquivo de configuração." + erro);
-        } catch (SQLException erro) {
-            System.out.println("Falha na conexao, comando sql = " + erro);
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha na conexao, comando sql = " + erro);
+            }
+        } else { 
+            return false;
         }
-
-
-        sql = "update usuario set nome = ?, login = ?, senha = ?, email = ?, tipo = ? where usuarioid = ?";
-        try {
-            JDBCUtil.init(configArquivo);
-            conexao = JDBCUtil.getConnection();
-
-            PreparedStatement pstm = conexao.prepareStatement(sql);
-            pstm.setString(1, user.getUsuarioNome());
-            pstm.setString(2, user.getUsuarioLogin());
-            pstm.setString(3, user.getUsuarioPassword());
-            pstm.setString(4, user.getUsuarioEmail());
-            pstm.setString(5, user.getUsuarioTipo());
-            pstm.setInt(6, user.getUsuarioId());
-
-            pstm.execute();
-            pstm.close();
-
-        } catch (ClassNotFoundException erro) {
-            System.out.println("Falha ao carregar o driver JDBC." + erro);
-        } catch (IOException erro) {
-            System.out.println("Falha ao carregar o arquivo de configuração." + erro);
-        } catch (SQLException erro) {
-            System.out.println("Falha na conexao, comando sql = " + erro);
-        }
+        return true;
     }
 
-    public void deletarUsuario(Usuario user) {
-        String sql = "delete from usuario where usuarioid = ?";
-        try {
-            JDBCUtil.init(configArquivo);
-            conexao = JDBCUtil.getConnection();
+    public boolean deletarUsuario(Usuario user) {
+        if(user.getUsuarioNome() != null && user.getUsuarioEmail()!= null){
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                String sql = "delete from usuario where usuarioid = ?";
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                pstm.setInt(1, user.getUsuarioId());
 
-            PreparedStatement pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, user.getUsuarioId());
+                pstm.execute();
+                pstm.close();
 
-            pstm.execute();
-            pstm.close();
-
-        } catch (ClassNotFoundException erro) {
-            System.out.println("Falha ao carregar o driver JDBC." + erro);
-        } catch (IOException erro) {
-            System.out.println("Falha ao carregar o arquivo de configuração." + erro);
-        } catch (SQLException erro) {
-            System.out.println("Falha de conexao, no comando = " + erro);
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha de conexao, no comando = " + erro);
+            }
+        } else {
+            return false;
         }
+        return true;
     }
 
     public boolean verificaSeEmailExiste(String email) {

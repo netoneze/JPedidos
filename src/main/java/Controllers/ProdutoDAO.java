@@ -62,4 +62,91 @@ public class ProdutoDAO {
             return null;
         }
     }
+    
+    public int criaProduto(Produto produto){
+        sql = "insert into produto (nome, descricao, precoUnid) values (?,?,?)";
+        
+        if(produto.getProdutoNome()!= null && produto.getProdutoDescricao()!= null){
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                pstm.setString(1, produto.getProdutoNome());
+                pstm.setString(2, produto.getProdutoDescricao());
+                pstm.setFloat(3, produto.getProdutoPreco());
+                
+                pstm.execute();
+                pstm.close();
+                
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha no comando sql = " + erro);
+            }
+        } else{
+            return 1;
+        }
+        return 0;
+    }
+    
+    public int atualizaProduto(Produto produto) {
+        
+        sql = "update produto set nome = ?, descricao = ?, precoUnid = ? where produtoId = ?";
+        
+        if(produto.getProdutoNome()!= null && produto.getProdutoDescricao()!= null){
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                pstm.setString(1, produto.getProdutoNome());
+                pstm.setString(2, produto.getProdutoDescricao());
+                pstm.setFloat(3, produto.getProdutoPreco());
+                pstm.setInt(4, produto.getProdudoId());
+                
+                pstm.execute();
+                pstm.close();
+                
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha no comando sql = " + erro);
+            }
+        } else{
+            return 1;
+        }
+        return 0;
+    }
+    
+    public int deletaProduto(Produto produto) {
+        String sql = "delete from produto where produtoId = ?";
+        
+        if(produto.getProdutoNome()!= null && produto.getProdutoDescricao()!= null){
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                pstm.setInt(1, produto.getProdudoId());
+                
+                pstm.execute();
+                pstm.close();
+                
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha no comando sql = " + erro);
+            }
+        } else{
+            return 1;
+        }
+        return 0;
+    }
 }

@@ -17,7 +17,10 @@ CREATE table pedido (
     nomeCliente VARCHAR(100) NOT NULL,
     telefoneCliente VARCHAR(20) NOT NULL,
     valorTotal FLOAT(10,2) NOT NULL,
+    pedidoStatus ENUM('aberto', 'fechado'),
     usuarioid INT NOT NULL,
+    criadoEm DATETIME NOT NULL,
+    fechadoEm DATETIME,
     PRIMARY KEY(idPedido),
     FOREIGN KEY(usuarioid) REFERENCES usuario(usuarioid)
 );
@@ -25,7 +28,7 @@ CREATE table pedido (
 DROP TABLE IF EXISTS produto;
 
 CREATE table produto(
-    produtoId INT NOT NULL AUTO INCREMENT,
+    produtoId INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(30) NOT NULL,
     descricao VARCHAR(100) NOT NULL,
     precoUnid FLOAT(10,2) NOT NULL,

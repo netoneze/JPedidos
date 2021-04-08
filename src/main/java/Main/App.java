@@ -1,7 +1,12 @@
 package Main;
 
+import Views.JPedidosLogin;
+import java.awt.BorderLayout;
+
 public class App {
 	public static void main(String[] args) {
-		// Inicie a app aqui
+            JPedidosLogin jpedidosLoginTela = new JPedidosLogin();
+            jpedidosLoginTela.setLayout(new BorderLayout());
+            jpedidosLoginTela.setVisible(true);
 	}
 }

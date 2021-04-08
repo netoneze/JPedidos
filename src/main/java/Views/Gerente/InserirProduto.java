@@ -5,8 +5,12 @@
  */
 package Views.Gerente;
 
+import Controllers.ProdutoDAO;
+import Models.Produto;
+import Models.Usuario;
 import Views.Funcionario.JPedidosFunc;
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,7 +18,7 @@ import java.awt.BorderLayout;
  */
 public class InserirProduto extends javax.swing.JFrame {
     private String usuarioId = "";
-    
+    ProdutoDAO produtoDAO = new ProdutoDAO();
     
     /**
      * Creates new form AdminInsertProduct
@@ -25,6 +29,23 @@ public class InserirProduto extends javax.swing.JFrame {
         this.usuarioId = usuarioId;
     }
 
+    public void LimpaCampo() {
+        field_nome.setText("");
+        field_descricao.setText("");
+        field_preco.setText("");
+    }
+    
+    public float verificaPreco(String price) {
+        float priceFloat = 0;
+        try {
+            priceFloat = Float.valueOf(price);
+            return priceFloat;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Preço inválido!", "Preco inválido", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,15 +57,15 @@ public class InserirProduto extends javax.swing.JFrame {
 
         jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        field_nome = new javax.swing.JTextField();
+        field_descricao = new javax.swing.JTextField();
+        field_preco = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_salvar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -52,7 +73,7 @@ public class InserirProduto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(228, 255, 255));
 
-        jTextField3.setToolTipText("Nome Completo");
+        field_nome.setToolTipText("Nome Completo");
 
         jLabel1.setText("Nome curto");
 
@@ -70,14 +91,14 @@ public class InserirProduto extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(field_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(field_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(261, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(field_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -86,15 +107,15 @@ public class InserirProduto extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(field_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(field_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(field_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
@@ -109,11 +130,11 @@ public class InserirProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_salvar.setBackground(new java.awt.Color(51, 153, 255));
+        btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_salvarActionPerformed(evt);
             }
         });
 
@@ -131,7 +152,7 @@ public class InserirProduto extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(384, 384, 384)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -147,7 +168,7 @@ public class InserirProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
 
@@ -161,9 +182,32 @@ public class InserirProduto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        String nome = field_nome.getText();
+        String descricao = field_descricao.getText();
+        String precoField = field_preco.getText();
+        float preco = verificaPreco(precoField);
+        if (nome.equals("") || descricao.equals("") || precoField.equals("")) {
+            JOptionPane.showMessageDialog(null, "Alguns campos estão com problemas!", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
+        } else if(preco <= 0) {
+            JOptionPane.showMessageDialog(null, "Preço inválido!", "Error!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Produto produto = new Produto();
+
+            produto.setProdutoNome(nome);
+            produto.setProdutoPreco(preco);
+            produto.setProdutoDescricao(descricao);
+            
+            produtoDAO.criaProduto(produto);
+            JOptionPane.showMessageDialog(
+                null,
+                "O produto foi criado com sucesso!",
+                "Sucesso",
+                JOptionPane.PLAIN_MESSAGE
+            );
+            this.LimpaCampo();
+        }
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,16 +252,16 @@ public class InserirProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_salvar;
     private javax.swing.JButton btn_voltar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField field_descricao;
+    private javax.swing.JTextField field_nome;
+    private javax.swing.JTextField field_preco;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

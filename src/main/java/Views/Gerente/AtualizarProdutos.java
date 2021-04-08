@@ -5,8 +5,12 @@
  */
 package Views.Gerente;
 
-import Views.Funcionario.JPedidosFunc;
+import Controllers.ProdutoDAO;
+import Models.Produto;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,14 +18,37 @@ import java.awt.BorderLayout;
  */
 public class AtualizarProdutos extends javax.swing.JFrame {
     private String usuarioId = "";
+    ProdutoDAO produtoDAO = new ProdutoDAO();
     
     /**
      * Creates new form AtualizarProduto
      */
     public AtualizarProdutos(String usuarioId) {
         initComponents();
+        this.atualizaTabelaProdutos("init");
         setLocationRelativeTo(null);
         this.usuarioId = usuarioId;
+    }
+    
+    public void atualizaTabelaProdutos(String mode) {
+        DefaultTableModel model = (DefaultTableModel) tbl_produtos.getModel();
+        
+        ArrayList<Produto> listaProdutos = produtoDAO.listaProdutos();
+        
+        model.setRowCount(0);
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            model.addRow(new Object[]{
+                listaProdutos.get(i).getProdudoId(),
+                listaProdutos.get(i).getProdutoNome(),
+                listaProdutos.get(i).getProdutoDescricao(),
+                listaProdutos.get(i).getProdutoPreco(),
+            });
+        }
+
+        listaProdutos.clear();
     }
 
     /**
@@ -35,33 +62,35 @@ public class AtualizarProdutos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbl_produtos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_salvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(228, 255, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"X-Tudo", "Pão, carne, queijo, salada, molho especial, calabresa, ovo, batata...",  new Float(12.0)}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome curto", "Descrição", "Preço unitário"
+                "ID", "Nome curto", "Descrição", "Preço unitário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable2.setSurrendersFocusOnKeystroke(true);
-        jScrollPane2.setViewportView(jTable2);
+        tbl_produtos.setSurrendersFocusOnKeystroke(true);
+        jScrollPane2.setViewportView(tbl_produtos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,11 +120,11 @@ public class AtualizarProdutos extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_salvar.setBackground(new java.awt.Color(51, 153, 255));
+        btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_salvarActionPerformed(evt);
             }
         });
 
@@ -113,7 +142,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(384, 384, 384)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(367, 367, 367)
                         .addComponent(jLabel2)))
@@ -129,7 +158,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
 
@@ -143,9 +172,34 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        int row = tbl_produtos.getSelectedRow();
+        int id = Integer.valueOf(tbl_produtos.getValueAt(row, 0).toString());
+        String nome = tbl_produtos.getValueAt(row, 1).toString();
+        String descricao = tbl_produtos.getValueAt(row, 2).toString();
+        float preco = Float.valueOf(tbl_produtos.getValueAt(row, 3).toString());
+
+        if (nome.equals("") || descricao.equals("") || preco <= 0) {
+            JOptionPane.showMessageDialog(null, "Alguns campos estão com problemas!", "Preencha corretamente!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Produto produto = new Produto();
+
+            produto.setProdutoNome(nome);
+            produto.setProdutoPreco(preco);
+            produto.setProdutoDescricao(descricao);
+            produto.setProdutoId(id);
+            
+            produtoDAO.atualizaProduto(produto);
+            JOptionPane.showMessageDialog(
+                null,
+                "Produto atualizado com sucesso!",
+                "Sucesso",
+                JOptionPane.PLAIN_MESSAGE
+            );
+
+            this.atualizaTabelaProdutos("update");
+        }
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,11 +238,11 @@ public class AtualizarProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_salvar;
     private javax.swing.JButton btn_voltar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tbl_produtos;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,10 +15,6 @@ public class TesteJDBC {
 		String path = System.getProperty("user.dir");
 		File config_file = new File(path + "/configuracaobd.properties");
 
-		assertThrows(ClassNotFoundException.class, () -> {
-			JDBCUtil.init(config_file);
-		});
-
 		assertThrows(IOException.class, () -> {
 			JDBCUtil.init(config_file);
 		});

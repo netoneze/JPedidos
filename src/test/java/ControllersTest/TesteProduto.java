@@ -29,7 +29,7 @@ public class TesteProduto {
 		ProdutoDAO prod = new ProdutoDAO();
 		Produto produto = new Produto(1, null, "pao, carne, queijo e salada", 12.50f);
 
-		assertTrue(prod.criaProduto(produto));
+		assertFalse(prod.criaProduto(produto));
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class TesteProduto {
 		ProdutoDAO prod = new ProdutoDAO();
 		Produto produto = new Produto(1, "x-salada", null, 12.50f);
 
-		assertTrue(prod.criaProduto(produto));
+		assertFalse(prod.criaProduto(produto));
 	}
 
 	@Test

@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS oficina2;
+CREATE DATABASE oficina2;
+USE oficina2;
+
 DROP TABLE IF EXISTS usuario;
 
 CREATE table usuario (
@@ -22,7 +26,7 @@ CREATE table pedido (
     criadoEm DATETIME NOT NULL,
     fechadoEm DATETIME,
     PRIMARY KEY(idPedido),
-    FOREIGN KEY(usuarioid) REFERENCES usuario(usuarioid)
+    FOREIGN KEY(usuarioid) REFERENCES usuario(usuarioid) 
 );
 
 DROP TABLE IF EXISTS produto;
@@ -40,8 +44,8 @@ DROP TABLE IF EXISTS order_product;
 CREATE table pedido_has_produto(
     pedido_idPedido INT NOT NULL,
     produto_id INT NOT NULL,
-    FOREIGN KEY(pedido_idPedido) REFERENCES pedido(idPedido),
-    FOREIGN KEY(produto_id) REFERENCES produto(produtoId)
+    FOREIGN KEY(pedido_idPedido) REFERENCES pedido(idPedido), 
+    FOREIGN KEY(produto_id) REFERENCES produto(produtoId) ON DELETE CASCADE
 );
 
 INSERT INTO usuario (nome, login, senha, email, tipo) VALUES ("administrador","admin","admin456","admin@hotmail.com","administrador");

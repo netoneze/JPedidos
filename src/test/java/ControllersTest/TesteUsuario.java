@@ -1,9 +1,10 @@
-package Controllers;
+package ControllersTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import Controllers.UsuarioDAO;
 import Models.Usuario;
 
 public class TesteUsuario {

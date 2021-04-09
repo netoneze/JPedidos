@@ -1,8 +1,10 @@
-package Models;
+package ModelsTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import Models.Produto;
 
 public class TesteProduto {
 	@Test

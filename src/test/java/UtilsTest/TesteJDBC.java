@@ -1,4 +1,4 @@
-package Utils;
+package UtilsTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+
+import Utils.JDBCUtil;
 
 public class TesteJDBC {
 	@Test

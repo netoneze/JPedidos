@@ -219,6 +219,10 @@ public class UsuarioDAO {
 
     public boolean verificaSeEmailExiste(String email) {
         ArrayList<Models.Usuario> listaUsuario = this.listaUsuario();
+        
+        if(listaUsuario == null) {
+        	return false;
+        }
 
         if (listaUsuario.size() <= 0) {
             return false;
@@ -235,19 +239,23 @@ public class UsuarioDAO {
     }
     
     public boolean verificaSeLoginExiste(String login) {
-        ArrayList<Models.Usuario> usersList = this.listaUsuario();
+        ArrayList<Models.Usuario> listaUsuario = this.listaUsuario();
+        
+        if(listaUsuario == null) {
+        	return false;
+        }
 
-        if (usersList.size() <= 0) {
+        if (listaUsuario.size() <= 0) {
             return false;
         }
         
-        for (int i = 0; i < usersList.size(); i++) {
-            if (usersList.get(i).getUsuarioLogin().equals(login)) {
+        for (int i = 0; i < listaUsuario.size(); i++) {
+            if (listaUsuario.get(i).getUsuarioLogin().equals(login)) {
                 return true;
             }
         }
 
-        usersList.clear();
+        listaUsuario.clear();
         return false;
     }
 }

@@ -6,7 +6,6 @@
 package Controllers;
 
 import Models.Pedido;
-import Models.PedidoHasProduto;
 import Models.Produto;
 import Utils.JDBCUtil;
 import java.io.File;
@@ -38,7 +37,7 @@ public class PedidoDAO {
                 conexao = JDBCUtil.getConnection();
 
                 java.sql.Timestamp hoje;
-                hoje = new java.sql.Timestamp(new java.util.Date().getTime());
+                hoje = new java.sql.Timestamp(new java.util.Date().getTime()); 
 
                 sql = "insert into pedido(nomeCliente, telefoneCliente, usuarioid, valorTotal, pedidoStatus, criadoEm) values(?, ?, ?, ?, ?, ?)";
                 preparedStatement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

@@ -7,8 +7,6 @@ package Views.Gerente;
 
 import Controllers.ProdutoDAO;
 import Models.Produto;
-import Models.Usuario;
-import Views.Funcionario.JPedidosFunc;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 

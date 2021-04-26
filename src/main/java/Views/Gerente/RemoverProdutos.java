@@ -7,7 +7,6 @@ package Views.Gerente;
 
 import Controllers.ProdutoDAO;
 import Models.Produto;
-import Models.Usuario;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

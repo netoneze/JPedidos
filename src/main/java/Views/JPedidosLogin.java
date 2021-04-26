@@ -5,17 +5,12 @@
  */
 package Views;
 
-import java.sql.ResultSet;
-
 import Views.Admin.Admin;
 import Models.Usuario;
 import Controllers.UsuarioDAO;
 import Views.Funcionario.JPedidosFunc;
 import Views.Gerente.JPedidosGer;
 import java.awt.BorderLayout;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**

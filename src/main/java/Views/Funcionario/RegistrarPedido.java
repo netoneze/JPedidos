@@ -6,7 +6,7 @@
 package Views.Funcionario;
 
 import Controllers.PedidoController;
-import Controllers.ProdutoDAO;
+import Controllers.ProdutoController;
 import Models.Pedido;
 import Models.Produto;
 import java.awt.BorderLayout;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author yohan
  */
 public class RegistrarPedido extends javax.swing.JFrame {
-    ProdutoDAO productController = new ProdutoDAO();
+    ProdutoController productController = new ProdutoController();
     PedidoController orderController = new PedidoController();
     ArrayList<Produto> productsList = productController.listaProdutos();
     ArrayList<Produto> selectedProducts = new ArrayList<Produto>();

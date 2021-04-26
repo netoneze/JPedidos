@@ -5,7 +5,7 @@
  */
 package Views.Gerente;
 
-import Controllers.ProdutoDAO;
+import Controllers.ProdutoController;
 import Models.Produto;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RemoverProdutos extends javax.swing.JFrame {
     private static String usuarioId = "";
-    ProdutoDAO produtoDAO = new ProdutoDAO();
+    ProdutoController produtoDAO = new ProdutoController();
     
     
     /**

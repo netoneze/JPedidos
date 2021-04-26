@@ -5,7 +5,7 @@
  */
 package Views.Gerente;
 
-import Controllers.ProdutoDAO;
+import Controllers.ProdutoController;
 import Models.Produto;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class InserirProduto extends javax.swing.JFrame {
     private static String usuarioId = "";
-    ProdutoDAO produtoDAO = new ProdutoDAO();
+    ProdutoController produtoDAO = new ProdutoController();
     
     /**
      * Creates new form AdminInsertProduct

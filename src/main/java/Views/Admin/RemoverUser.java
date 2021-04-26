@@ -6,9 +6,7 @@
 package Views.Admin;
 
 import Controllers.UsuarioController;
-import Models.Usuario;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author yohan
  */
 public class RemoverUser extends javax.swing.JFrame {
-    UsuarioController usuarioDAO = new UsuarioController();
+    UsuarioController usuarioController = new UsuarioController();
     
     /**
      * Creates new form RemoverUser
@@ -31,7 +29,7 @@ public class RemoverUser extends javax.swing.JFrame {
     public void atualizaTabelaUsuario(String mode) {
         DefaultTableModel model = (DefaultTableModel) tbl_usuarios.getModel();
 
-        ArrayList<Usuario> listaUsuarios = usuarioDAO.listaUsuario();
+        var listaUsuarios = usuarioController.listaUsuario();
 
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
@@ -171,14 +169,9 @@ public class RemoverUser extends javax.swing.JFrame {
         int row = tbl_usuarios.getSelectedRow();
         String id = tbl_usuarios.getValueAt(row, 0).toString();
         String nome = tbl_usuarios.getValueAt(row, 1).toString();
-        String email = tbl_usuarios.getValueAt(row, 2).toString();
-        Usuario usuario = new Usuario();
+        String email = tbl_usuarios.getValueAt(row, 2).toString();    
         
-        usuario.setUsuarioId(Integer.parseInt(id));
-        usuario.setUsuarioEmail(email);
-        usuario.setUsuarioNome(nome);
-        
-        usuarioDAO.deletarUsuario(usuario);
+        usuarioController.deletarUsuario(Integer.parseInt(id), nome, email);
         this.atualizaTabelaUsuario("delete");
         JOptionPane.showMessageDialog(null, "O usuario foi deletado!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btn_removerActionPerformed

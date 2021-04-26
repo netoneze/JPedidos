@@ -6,7 +6,6 @@
 package Views.Admin;
 
 import Controllers.UsuarioController;
-import Models.Usuario;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author yohan
  */
 public class InserirUser extends javax.swing.JFrame {
-    UsuarioController usuarioDAO = new UsuarioController();
+    UsuarioController usuarioController = new UsuarioController();
     
     /**
      * Creates new form AdminInsert
@@ -206,18 +205,10 @@ public class InserirUser extends javax.swing.JFrame {
 
         if (nome.equals("") || email.equals("") || login.equals("") || senha.equals("") || tipo.equals("")) {
             JOptionPane.showMessageDialog(null, "Alguns campos estão com problemas!", "Preencha todos os campos!", JOptionPane.ERROR_MESSAGE);
-        } else if (usuarioDAO.verificaSeEmailExiste(email) || usuarioDAO.verificaSeLoginExiste(login)) {
+        } else if (usuarioController.verificaSeEmailExiste(email) || usuarioController.verificaSeLoginExiste(login)) {
             JOptionPane.showMessageDialog(null, "Este usuário já existe!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-            Usuario usuario = new Usuario();
-            
-            usuario.setUsuarioNome(nome);
-            usuario.setUsuarioLogin(login);
-            usuario.setUsuarioEmail(email);
-            usuario.setUsuarioPassword(senha);
-            usuario.setUsuarioTipo(tipo.toLowerCase());
-
-            usuarioDAO.criaUsuario(usuario);
+            usuarioController.criaUsuario(nome, email, login, senha, tipo.toLowerCase());
             JOptionPane.showMessageDialog(null, "Usuario criado com sucesso!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
             this.LimpaCampo();
         }

@@ -6,9 +6,7 @@
 package Views.Admin;
 
 import Controllers.UsuarioController;
-import Models.Usuario;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author yohan
  */
 public class AtualizarUser extends javax.swing.JFrame {
-    UsuarioController usuarioDAO = new UsuarioController();
+    UsuarioController usuarioController = new UsuarioController();
     
     /**
      * Creates new form AtualizarUser
@@ -31,7 +29,7 @@ public class AtualizarUser extends javax.swing.JFrame {
     public void atualizaTabelaUsuario(String mode) {
         DefaultTableModel model = (DefaultTableModel) tbl_usuarios.getModel();
 
-        ArrayList<Usuario> listaUsuarios = usuarioDAO.listaUsuario();
+        var listaUsuarios = usuarioController.listaUsuario();
 
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
@@ -51,10 +49,9 @@ public class AtualizarUser extends javax.swing.JFrame {
     }
     
     public int atualizaUsuario(String usuarioid, String nome, String email, String login, String tipo){
-
         String senha = "";
         boolean temDadoInvalido = false;
-        ArrayList<Usuario> listaUsuarios = usuarioDAO.listaUsuario();
+        var listaUsuarios = usuarioController.listaUsuario();
 
         if ((!tipo.equals("gerente") && !tipo.equals("administrador") && !tipo.equals("funcionario"))) {
             listaUsuarios.clear();
@@ -80,13 +77,13 @@ public class AtualizarUser extends javax.swing.JFrame {
             }
             
             if (!LoginNoBanco.equals(login)) {
-                if (usuarioDAO.verificaSeLoginExiste(login)) {
+                if (usuarioController.verificaSeLoginExiste(login)) {
                     temDadoInvalido = true;
                 }
             }
 
             if (!EmailNoBanco.equals(email)) {
-                if (usuarioDAO.verificaSeEmailExiste(email)) {
+                if (usuarioController.verificaSeEmailExiste(email)) {
                     temDadoInvalido = true;
                 }
             }
@@ -96,17 +93,10 @@ public class AtualizarUser extends javax.swing.JFrame {
                 this.atualizaTabelaUsuario("update");
                 return 2;
             } else {
-                Usuario usuario = new Usuario(
-                    Integer.parseInt(usuarioid),
-                    nome,
-                    login,
-                    senha,
-                    email,
-                    tipo.toLowerCase()
-                );
+                
                 listaUsuarios.clear();
 
-                usuarioDAO.alterarUsuario(usuario);
+                usuarioController.alterarUsuario(Integer.parseInt(usuarioid), nome, email, login, tipo.toLowerCase(), senha);
                 this.atualizaTabelaUsuario("update");
                 return 3;
             }

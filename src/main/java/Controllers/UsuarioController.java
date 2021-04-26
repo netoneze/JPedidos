@@ -20,10 +20,16 @@ public class UsuarioController {
         return usuario2.userAutentica(usuario);
     }
 
-    public boolean criaUsuario(Usuario user) {
+    public boolean criaUsuario(String name, String email, String username, String senha, String tipo) {
         Usuario usuario = new Usuario();
         
-        return usuario.criaUsuario(user);
+        usuario.setUsuarioNome(name);
+        usuario.setUsuarioLogin(username);
+        usuario.setUsuarioEmail(email);
+        usuario.setUsuarioPassword(senha);
+        usuario.setUsuarioTipo(tipo);
+        
+        return usuario.criaUsuario(usuario);
     }
 
     public ArrayList<Usuario> listaUsuario() {
@@ -32,16 +38,27 @@ public class UsuarioController {
         return usuario.listaUsuario();
     }
 
-    public boolean alterarUsuario(Usuario user) {
+    public boolean alterarUsuario(int id, String name, String email, String username, String role, String senha) {
         Usuario usuario = new Usuario();
         
-        return usuario.alterarUsuario(user);
+        usuario.setUsuarioId(id);
+        usuario.setUsuarioNome(name);
+        usuario.setUsuarioLogin(username);
+        usuario.setUsuarioEmail(email);
+        usuario.setUsuarioTipo(role);
+        usuario.setUsuarioPassword(senha);
+        
+        return usuario.alterarUsuario(usuario);
     }
 
-    public boolean deletarUsuario(Usuario user) {
+    public boolean deletarUsuario(int id, String name, String email) {
         Usuario usuario = new Usuario();
         
-        return usuario.deletarUsuario(user);
+        usuario.setUsuarioId(id);
+        usuario.setUsuarioNome(name);
+        usuario.setUsuarioEmail(email);
+        
+        return usuario.deletarUsuario(usuario);
     }
 
     public boolean verificaSeEmailExiste(String email) {

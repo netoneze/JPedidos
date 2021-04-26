@@ -5,7 +5,7 @@
  */
 package Views.Admin;
 
-import Controllers.UsuarioDAO;
+import Controllers.UsuarioController;
 import Models.Usuario;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author yohan
  */
 public class InserirUser extends javax.swing.JFrame {
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    UsuarioController usuarioDAO = new UsuarioController();
     
     /**
      * Creates new form AdminInsert

@@ -7,7 +7,7 @@ package Views;
 
 import Views.Admin.Admin;
 import Models.Usuario;
-import Controllers.UsuarioDAO;
+import Controllers.UsuarioController;
 import Views.Funcionario.JPedidosFunc;
 import Views.Gerente.JPedidosGer;
 import java.awt.BorderLayout;
@@ -35,7 +35,7 @@ public class JPedidosLogin extends javax.swing.JFrame {
         usuario.setUsuarioLogin(username);
         usuario.setUsuarioPassword(password);
 
-        UsuarioDAO userController = new UsuarioDAO();
+        UsuarioController userController = new UsuarioController();
         Usuario resposta = userController.userAutentica(usuario);
         
         if (resposta != null) {          

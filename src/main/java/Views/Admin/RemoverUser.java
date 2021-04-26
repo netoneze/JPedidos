@@ -5,7 +5,7 @@
  */
 package Views.Admin;
 
-import Controllers.UsuarioDAO;
+import Controllers.UsuarioController;
 import Models.Usuario;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author yohan
  */
 public class RemoverUser extends javax.swing.JFrame {
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    UsuarioController usuarioDAO = new UsuarioController();
     
     /**
      * Creates new form RemoverUser

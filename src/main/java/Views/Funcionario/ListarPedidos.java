@@ -5,7 +5,7 @@
  */
 package Views.Funcionario;
 
-import Controllers.PedidoDAO;
+import Controllers.PedidoController;
 import Models.Pedido;
 import Views.Gerente.JPedidosGer;
 import java.awt.BorderLayout;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListarPedidos extends javax.swing.JFrame {
     private static String usuarioId = "";
     private static String tipoUsuario = "";
-    PedidoDAO pedidoDAO = new PedidoDAO();
+    PedidoController pedidoDAO = new PedidoController();
     /**
      * Creates new form ListarPedido
      */

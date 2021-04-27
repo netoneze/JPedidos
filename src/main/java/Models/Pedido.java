@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Nelson Toneze e Yohan Pessanha
+ * @author Nelson Toneze 
  */
 public class Pedido {
     private static final String caminho = System.getProperty("user.dir");

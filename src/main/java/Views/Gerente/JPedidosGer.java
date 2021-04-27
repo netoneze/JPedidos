@@ -10,7 +10,7 @@ import Views.Funcionario.ListarPedidos;
 import Views.JPedidosLogin;
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class JPedidosGer extends javax.swing.JFrame {
     private static String usuarioId = "";

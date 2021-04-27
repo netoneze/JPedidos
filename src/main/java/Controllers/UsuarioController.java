@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Nelson Toneze e Yohan Pessanha
+ * @author Nelson Toneze 
  */
 public class UsuarioController {
 

@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class RemoverProdutos extends javax.swing.JFrame {
     private static String usuarioId = "";

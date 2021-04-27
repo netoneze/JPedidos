@@ -7,7 +7,7 @@ package Models;
 
 /**
  *
- * @author Nelson Toneze e Yohan Pessanha
+ * @author Nelson Toneze 
  */
 public class PedidoHasProduto {
     private int pedido_idPedido;

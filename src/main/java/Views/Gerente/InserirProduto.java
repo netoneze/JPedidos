@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class InserirProduto extends javax.swing.JFrame {
     private static String usuarioId = "";

@@ -20,21 +20,34 @@ public class ProdutoController {
         return produto.listaProdutos();
     }
     
-    public boolean criaProduto(Produto produto){
+    public boolean criaProduto(String nome, Float preco, String descricao){
         Produto produto2 = new Produto();
         
-        return produto2.criaProduto(produto);
+        produto2.setProdutoNome(nome);
+        produto2.setProdutoPreco(preco);
+        produto2.setProdutoDescricao(descricao);
+        
+        return produto2.criaProduto(produto2);
     }
     
-    public boolean atualizaProduto(Produto produto) {
+    public boolean atualizaProduto(String nome, Float preco, String descricao, int id) {
         Produto produto2 = new Produto();
         
-        return produto2.atualizaProduto(produto);
+        produto2.setProdutoNome(nome);
+        produto2.setProdutoPreco(preco);
+        produto2.setProdutoDescricao(descricao);
+        produto2.setProdutoId(id);
+        
+        return produto2.atualizaProduto(produto2);
     }
     
-    public boolean deletaProduto(Produto produto) {
+    public boolean deletaProduto(int id, String nome, String descricao) {
         Produto produto2 = new Produto();
         
-        return produto2.deletaProduto(produto);
+        produto2.setProdutoId(id);
+        produto2.setProdutoNome(nome);
+        produto2.setProdutoDescricao(descricao);
+        
+        return produto2.deletaProduto(produto2);
     }
 }

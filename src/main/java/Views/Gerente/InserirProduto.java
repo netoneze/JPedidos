@@ -6,7 +6,6 @@
 package Views.Gerente;
 
 import Controllers.ProdutoController;
-import Models.Produto;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class InserirProduto extends javax.swing.JFrame {
     private static String usuarioId = "";
-    ProdutoController produtoDAO = new ProdutoController();
+    ProdutoController produtoController = new ProdutoController();
     
     /**
      * Creates new form AdminInsertProduct
@@ -190,13 +189,8 @@ public class InserirProduto extends javax.swing.JFrame {
         } else if(preco <= 0) {
             JOptionPane.showMessageDialog(null, "Preço inválido!", "Error!", JOptionPane.ERROR_MESSAGE);
         } else {
-            Produto produto = new Produto();
-
-            produto.setProdutoNome(nome);
-            produto.setProdutoPreco(preco);
-            produto.setProdutoDescricao(descricao);
             
-            produtoDAO.criaProduto(produto);
+            produtoController.criaProduto(nome, preco, descricao);
             JOptionPane.showMessageDialog(
                 null,
                 "O produto foi criado com sucesso!",

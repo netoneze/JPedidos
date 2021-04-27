@@ -6,9 +6,7 @@
 package Views.Gerente;
 
 import Controllers.ProdutoController;
-import Models.Produto;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RemoverProdutos extends javax.swing.JFrame {
     private static String usuarioId = "";
-    ProdutoController produtoDAO = new ProdutoController();
+    ProdutoController produtoController = new ProdutoController();
     
     
     /**
@@ -34,22 +32,19 @@ public class RemoverProdutos extends javax.swing.JFrame {
     public void atualizaTabelaProdutos(String mode) {
         DefaultTableModel model = (DefaultTableModel) tbl_produtos.getModel();
         
-        ArrayList<Produto> listaProdutos = produtoDAO.listaProdutos();
-        
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
 
-        for (int i = 0; i < listaProdutos.size(); i++) {
+        for (int i = 0; i < produtoController.listaProdutos().size(); i++) {
             model.addRow(new Object[]{
-                listaProdutos.get(i).getProdudoId(),
-                listaProdutos.get(i).getProdutoNome(),
-                listaProdutos.get(i).getProdutoDescricao(),
-                listaProdutos.get(i).getProdutoPreco(),
+                produtoController.listaProdutos().get(i).getProdudoId(),
+                produtoController.listaProdutos().get(i).getProdutoNome(),
+                produtoController.listaProdutos().get(i).getProdutoDescricao(),
+                produtoController.listaProdutos().get(i).getProdutoPreco(),
             });
         }
 
-        listaProdutos.clear();
     }
     
     /**
@@ -184,14 +179,8 @@ public class RemoverProdutos extends javax.swing.JFrame {
         int id = Integer.valueOf(tbl_produtos.getValueAt(row, 0).toString());
         String nome = tbl_produtos.getValueAt(row, 1).toString();
         String descricao = tbl_produtos.getValueAt(row, 2).toString();
-   
-        Produto produto = new Produto();
-        
-        produto.setProdutoId(id);
-        produto.setProdutoNome(nome);
-        produto.setProdutoDescricao(descricao);
-        
-        produtoDAO.deletaProduto(produto);
+          
+        produtoController.deletaProduto(id, nome, descricao);
         this.atualizaTabelaProdutos("delete");
         JOptionPane.showMessageDialog(null, "O produto foi deletado!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btn_removerActionPerformed

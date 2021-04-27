@@ -6,9 +6,7 @@
 package Views.Gerente;
 
 import Controllers.ProdutoController;
-import Models.Produto;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AtualizarProdutos extends javax.swing.JFrame {
     private static String usuarioId = "";
-    ProdutoController produtoDAO = new ProdutoController();
+    ProdutoController produtoController = new ProdutoController();
     
     /**
      * Creates new form AtualizarProduto
@@ -33,22 +31,19 @@ public class AtualizarProdutos extends javax.swing.JFrame {
     public void atualizaTabelaProdutos(String mode) {
         DefaultTableModel model = (DefaultTableModel) tbl_produtos.getModel();
         
-        ArrayList<Produto> listaProdutos = produtoDAO.listaProdutos();
-        
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
 
-        for (int i = 0; i < listaProdutos.size(); i++) {
+        for (int i = 0; i < produtoController.listaProdutos().size(); i++) {
             model.addRow(new Object[]{
-                listaProdutos.get(i).getProdudoId(),
-                listaProdutos.get(i).getProdutoNome(),
-                listaProdutos.get(i).getProdutoDescricao(),
-                listaProdutos.get(i).getProdutoPreco(),
+                produtoController.listaProdutos().get(i).getProdudoId(),
+                produtoController.listaProdutos().get(i).getProdutoNome(),
+                produtoController.listaProdutos().get(i).getProdutoDescricao(),
+                produtoController.listaProdutos().get(i).getProdutoPreco(),
             });
         }
 
-        listaProdutos.clear();
     }
 
     /**
@@ -189,14 +184,8 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         if (nome.equals("") || descricao.equals("") || preco <= 0) {
             JOptionPane.showMessageDialog(null, "Alguns campos estão com problemas!", "Preencha corretamente!", JOptionPane.ERROR_MESSAGE);
         } else {
-            Produto produto = new Produto();
-
-            produto.setProdutoNome(nome);
-            produto.setProdutoPreco(preco);
-            produto.setProdutoDescricao(descricao);
-            produto.setProdutoId(id);
-            
-            produtoDAO.atualizaProduto(produto);
+                   
+            produtoController.atualizaProduto(nome, preco, descricao, id);
             JOptionPane.showMessageDialog(
                 null,
                 "Produto atualizado com sucesso!",

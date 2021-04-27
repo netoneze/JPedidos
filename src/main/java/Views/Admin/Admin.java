@@ -10,7 +10,7 @@ import java.awt.BorderLayout;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class Admin extends javax.swing.JFrame {
 

@@ -15,10 +15,15 @@ import java.util.ArrayList;
  */
 public class PedidoController {
     
-    public boolean criaPedido(Pedido pedido, ArrayList<Produto> listaDeProduto){
+    public boolean criaPedido(String nomeCliente, String telefoneCliente, float total, int usuarioId, ArrayList<Produto> listaDeProduto){
         Pedido pedido2 = new Pedido();
         
-        return pedido2.criaPedido(pedido, listaDeProduto);
+        pedido2.setPedidoNomeCliente(nomeCliente);
+        pedido2.setPedidoTelefoneCliente(telefoneCliente);
+        pedido2.setPedidoTotal(total);
+        pedido2.setUsuarioId(usuarioId);
+        
+        return pedido2.criaPedido(pedido2, listaDeProduto);
     }
     
     public ArrayList<Pedido> listaPedidos() {
@@ -27,4 +32,8 @@ public class PedidoController {
         return pedido.listaPedidos();
     }
     
+    public ArrayList<Produto> retornaArrayTipoPedido() {
+        ArrayList<Produto> ProdutosLista = new ArrayList<Produto>();
+        return ProdutosLista;
+    }
 }

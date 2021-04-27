@@ -7,8 +7,6 @@ package Views.Funcionario;
 
 import Controllers.PedidoController;
 import Controllers.ProdutoController;
-import Models.Pedido;
-import Models.Produto;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -16,13 +14,13 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class RegistrarPedido extends javax.swing.JFrame {
     ProdutoController productController = new ProdutoController();
     PedidoController orderController = new PedidoController();
-    ArrayList<Produto> productsList = productController.listaProdutos();
-    ArrayList<Produto> selectedProducts = new ArrayList<Produto>();
+    
+    ArrayList selectedProducts = new ArrayList<>();
     private static String usuarioId = "";
     DefaultTableModel model;
     private int linha = 0;
@@ -34,7 +32,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         this.usuarioId = usuarioId;
         initComponents();
         ItensUI(true, true, true, false, false);
-        insereProdutoCombox(productsList);
+        insereProdutoCombox();
         setLocationRelativeTo(null);
         this.model = (DefaultTableModel) tbl_pedidos.getModel();
     }
@@ -60,23 +58,23 @@ public class RegistrarPedido extends javax.swing.JFrame {
         label_total.setText(String.valueOf(colValor));
     }
     
-    public void insereProdutoCombox(ArrayList<Produto> productsList) {
-        if (productsList.size() > 0) {
-            for (int i = 0; i < productsList.size(); i++) {
-                jComboBoxTipoProduto.addItem(productsList.get(i).getProdutoNome());
+    public void insereProdutoCombox() {
+        if (productController.listaProdutos().size() > 0) {
+            for (int i = 0; i < productController.listaProdutos().size(); i++) {
+                jComboBoxTipoProduto.addItem(productController.listaProdutos().get(i).getProdutoNome());
             }
         }
     }
     
     public void adicionaNaTabela(String mode) {
-        String tipo = productsList.get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoNome();
-        Float preco = productsList.get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco();
+        String tipo = productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoNome();
+        Float preco = productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco();
         int quantidade = (int) jSpinnerQuantidade.getValue();
         float valor = quantidade * preco;
         model.setValueAt(tipo, linha, 0);
         model.setValueAt(quantidade, linha, 1);
         model.setValueAt(valor, linha, 2);
-        selectedProducts.add(this.productsList.get(jComboBoxTipoProduto.getSelectedIndex()));
+        selectedProducts.add(this.productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()));
         this.model = (DefaultTableModel) tbl_pedidos.getModel();
     }
     
@@ -432,14 +430,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
             );
             ItensUI(true, true, true, true, true);
         } else {
-            Pedido pedido = new Pedido();
-           
-            pedido.setPedidoNomeCliente(nomeCliente);
-            pedido.setPedidoTelefoneCliente(telefoneCliente);
-            pedido.setPedidoTotal(total);
-            pedido.setUsuarioId(Integer.parseInt(this.usuarioId));
-
-            orderController.criaPedido(pedido, selectedProducts);
+            
+            orderController.criaPedido(nomeCliente, telefoneCliente, total, Integer.parseInt(this.usuarioId), selectedProducts);
             JOptionPane.showMessageDialog(
                 null,
                 "Pedido salvo com sucesso!",
@@ -458,7 +450,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addnometelefoneActionPerformed
 
     private void jComboBoxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoProdutoActionPerformed
-        label_preco.setText(String.valueOf(productsList.get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco()));
+        label_preco.setText(String.valueOf(productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco()));
     }//GEN-LAST:event_jComboBoxTipoProdutoActionPerformed
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed

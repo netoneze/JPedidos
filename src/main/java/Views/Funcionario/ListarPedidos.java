@@ -6,20 +6,18 @@
 package Views.Funcionario;
 
 import Controllers.PedidoController;
-import Models.Pedido;
 import Views.Gerente.JPedidosGer;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class ListarPedidos extends javax.swing.JFrame {
     private static String usuarioId = "";
     private static String tipoUsuario = "";
-    PedidoController pedidoDAO = new PedidoController();
+    PedidoController pedidoController = new PedidoController();
     /**
      * Creates new form ListarPedido
      */
@@ -33,24 +31,21 @@ public class ListarPedidos extends javax.swing.JFrame {
     
     public void atualizaTabelaPedido(String mode) {
         DefaultTableModel model = (DefaultTableModel) tbl_pedidos.getModel();
-
-        ArrayList<Pedido> listaPedidos = pedidoDAO.listaPedidos();
         
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
 
-        for (int i = 0; i < listaPedidos.size(); i++) {
+        for (int i = 0; i < pedidoController.listaPedidos().size(); i++) {
             model.addRow(new Object[]{
-                listaPedidos.get(i).getPedidoId(),
-                listaPedidos.get(i).getPedidoNomeCliente(),
-                listaPedidos.get(i).getPedidoTelefoneCliente(),
-                listaPedidos.get(i).getValorTotal(),
-                listaPedidos.get(i).getPedidoStatus()
+                pedidoController.listaPedidos().get(i).getPedidoId(),
+                pedidoController.listaPedidos().get(i).getPedidoNomeCliente(),
+                pedidoController.listaPedidos().get(i).getPedidoTelefoneCliente(),
+                pedidoController.listaPedidos().get(i).getValorTotal(),
+                pedidoController.listaPedidos().get(i).getPedidoStatus()
             });
         }
 
-        listaPedidos.clear();
     }
 
     /**

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class InserirUser extends javax.swing.JFrame {
     UsuarioController usuarioController = new UsuarioController();

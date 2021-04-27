@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class AtualizarUser extends javax.swing.JFrame {
     UsuarioController usuarioController = new UsuarioController();

@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author yohan
+ * @author Nelson Toneze
  */
 public class JPedidosLogin extends javax.swing.JFrame {
 

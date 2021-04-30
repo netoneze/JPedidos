@@ -195,7 +195,7 @@ public class Pedido {
                 pedido.setPedidoStatus(rs.getString("pedidoStatus"));
                 pedido.setPedidoNomeCliente(rs.getString("nomeCliente"));
                 pedido.setPedidoTelefoneCliente(rs.getString("telefoneCliente"));
-                pedido.setPedidoId(rs.getInt("usuarioId"));
+                pedido.setUsuarioId(rs.getInt("usuarioId"));
                 pedido.setPedidoTotal(rs.getFloat("valorTotal"));
 
                 lista.add(pedido);
@@ -213,6 +213,37 @@ public class Pedido {
             System.out.println("Falha no comando sql = " + erro);
             return null;
         }
+    }
+    
+    public boolean alterarPedido(Pedido pedido){
+        if(pedido.getPedidoNomeCliente()!= null && pedido.getPedidoStatus()!= null){     
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+                String sql = "update pedido set pedidoStatus = ?, fechadoEm = ? WHERE idPedido = ?";
+                PreparedStatement pstm = conexao.prepareStatement(sql);
+                
+                java.sql.Timestamp hoje;
+                hoje = new java.sql.Timestamp(new java.util.Date().getTime()); 
+                
+                pstm.setString(1, pedido.getPedidoStatus());
+                pstm.setTimestamp(2, hoje);
+                pstm.setInt(3, pedido.getPedidoId());
+
+                pstm.execute();
+                pstm.close();
+
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha na conexao, comando sql = " + erro);
+            }
+        } else { 
+            return false;
+        }
+        return true;
     }
     
 }

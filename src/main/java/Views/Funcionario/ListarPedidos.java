@@ -8,6 +8,7 @@ package Views.Funcionario;
 import Controllers.PedidoController;
 import Views.Gerente.JPedidosGer;
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +26,11 @@ public class ListarPedidos extends javax.swing.JFrame {
         this.usuarioId = usuarioId;
         this.tipoUsuario = tipoUsuario;
         initComponents();
+        if(this.tipoUsuario == "funcionario"){
+            ItensUI(true);
+        } else {
+            ItensUI(false);
+        }
         atualizaTabelaPedido("init");
         setLocationRelativeTo(null);
     }
@@ -45,9 +51,12 @@ public class ListarPedidos extends javax.swing.JFrame {
                 pedidoController.listaPedidos().get(i).getPedidoStatus()
             });
         }
-
     }
 
+    public void ItensUI(boolean A){
+        btn_fechar_pedido.setEnabled(A); 
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +71,7 @@ public class ListarPedidos extends javax.swing.JFrame {
         tbl_pedidos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
+        btn_fechar_pedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +126,13 @@ public class ListarPedidos extends javax.swing.JFrame {
             }
         });
 
+        btn_fechar_pedido.setText("Fechar Pedido");
+        btn_fechar_pedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_fechar_pedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,8 +148,13 @@ public class ListarPedidos extends javax.swing.JFrame {
                 .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(384, 384, 384))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(384, 384, 384))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_fechar_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(368, 368, 368))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +165,9 @@ public class ListarPedidos extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_fechar_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -164,6 +188,16 @@ public class ListarPedidos extends javax.swing.JFrame {
         }
             
     }//GEN-LAST:event_btn_voltarActionPerformed
+
+    private void btn_fechar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fechar_pedidoActionPerformed
+        int row = tbl_pedidos.getSelectedRow();
+        String nomeCliente = String.valueOf(tbl_pedidos.getValueAt(row, 1));
+        int id = row + 1;
+        if (pedidoController.alteraPedido("fechado", id, nomeCliente)){
+            JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso", "Pedido Fechado", JOptionPane.PLAIN_MESSAGE);
+        }
+        atualizaTabelaPedido("update");
+    }//GEN-LAST:event_btn_fechar_pedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,6 +228,7 @@ public class ListarPedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_fechar_pedido;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -32,6 +32,16 @@ public class PedidoController {
         return pedido.listaPedidos();
     }
     
+    public boolean alteraPedido(String status, int id, String nomeCliente){
+        Pedido pedido2 = new Pedido();
+        
+        pedido2.setPedidoId(id);
+        pedido2.setPedidoStatus(status);
+        pedido2.setPedidoNomeCliente(nomeCliente);
+        
+        return pedido2.alterarPedido(pedido2);
+    }
+    
     public ArrayList<Produto> retornaArrayTipoPedido() {
         ArrayList<Produto> ProdutosLista = new ArrayList<Produto>();
         return ProdutosLista;

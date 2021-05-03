@@ -8,6 +8,9 @@ package Views.Funcionario;
 import Controllers.PedidoController;
 import Views.Gerente.JPedidosGer;
 import java.awt.BorderLayout;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,7 +25,7 @@ public class ListarPedidos extends javax.swing.JFrame {
     /**
      * Creates new form ListarPedido
      */
-    public ListarPedidos(String usuarioId, String tipoUsuario) {
+    public ListarPedidos(String usuarioId, String tipoUsuario) throws ParseException {
         this.usuarioId = usuarioId;
         this.tipoUsuario = tipoUsuario;
         initComponents();
@@ -35,20 +38,34 @@ public class ListarPedidos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public void atualizaTabelaPedido(String mode) {
+    public void atualizaTabelaPedido(String mode) throws ParseException {
         DefaultTableModel model = (DefaultTableModel) tbl_pedidos.getModel();
         
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-
+        
+        tbl_pedidos.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tbl_pedidos.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tbl_pedidos.getColumnModel().getColumn(4).setPreferredWidth(10);
+        
         for (int i = 0; i < pedidoController.listaPedidos().size(); i++) {
+            
+            String dataFechadoEm = "";
+            
+            if(pedidoController.listaPedidos().get(i).getFechadoEm() != null){
+                dataFechadoEm = pedidoController.listaPedidos().get(i).getFechadoEm();
+            } else {
+                dataFechadoEm = "Ainda aberto";
+            }
             model.addRow(new Object[]{
                 pedidoController.listaPedidos().get(i).getPedidoId(),
                 pedidoController.listaPedidos().get(i).getPedidoNomeCliente(),
                 pedidoController.listaPedidos().get(i).getPedidoTelefoneCliente(),
                 pedidoController.listaPedidos().get(i).getValorTotal(),
-                pedidoController.listaPedidos().get(i).getPedidoStatus()
+                pedidoController.listaPedidos().get(i).getPedidoStatus(),
+                pedidoController.listaPedidos().get(i).getCriadoEm(),
+                dataFechadoEm
             });
         }
     }
@@ -82,11 +99,11 @@ public class ListarPedidos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Telefone", "Total", "Status "
+                "ID", "Nome", "Telefone", "Total", "Status ", "Abertura", "Fechamento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -100,6 +117,8 @@ public class ListarPedidos extends javax.swing.JFrame {
             tbl_pedidos.getColumnModel().getColumn(2).setResizable(false);
             tbl_pedidos.getColumnModel().getColumn(3).setResizable(false);
             tbl_pedidos.getColumnModel().getColumn(4).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(5).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(6).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -196,7 +215,11 @@ public class ListarPedidos extends javax.swing.JFrame {
         if (pedidoController.alteraPedido("fechado", id, nomeCliente)){
             JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso", "Pedido Fechado", JOptionPane.PLAIN_MESSAGE);
         }
-        atualizaTabelaPedido("update");
+        try {
+            atualizaTabelaPedido("update");
+        } catch (ParseException ex) {
+            Logger.getLogger(ListarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_fechar_pedidoActionPerformed
 
     /**
@@ -222,8 +245,12 @@ public class ListarPedidos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListarPedidos(usuarioId, tipoUsuario).setVisible(true);
-            }
+                try {
+                    new ListarPedidos(usuarioId, tipoUsuario).setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ListarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
         });
     }
 

@@ -7,6 +7,9 @@ package Views.Funcionario;
 
 import Views.JPedidosLogin;
 import java.awt.BorderLayout;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -151,7 +154,12 @@ public class JPedidosFunc extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void btn_listarpedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listarpedidoActionPerformed
-        ListarPedidos novaTelaListarPedido = new ListarPedidos(usuarioId, "funcionario");
+        ListarPedidos novaTelaListarPedido = null;
+        try {
+            novaTelaListarPedido = new ListarPedidos(usuarioId, "funcionario");
+        } catch (ParseException ex) {
+            Logger.getLogger(JPedidosFunc.class.getName()).log(Level.SEVERE, null, ex);
+        }
         novaTelaListarPedido.setLayout(new BorderLayout());
         novaTelaListarPedido.setVisible(true);
         this.dispose();

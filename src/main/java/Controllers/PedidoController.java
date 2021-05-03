@@ -7,6 +7,7 @@ package Controllers;
 
 import Models.Pedido;
 import Models.Produto;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +27,7 @@ public class PedidoController {
         return pedido2.criaPedido(pedido2, listaDeProduto);
     }
     
-    public ArrayList<Pedido> listaPedidos() {
+    public ArrayList<Pedido> listaPedidos() throws ParseException {
         Pedido pedido = new Pedido();
         
         return pedido.listaPedidos();

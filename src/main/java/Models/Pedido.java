@@ -13,7 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -181,7 +184,7 @@ public class Pedido {
         return true;
     }
     
-    public ArrayList<Pedido> listaPedidos() {
+    public ArrayList<Pedido> listaPedidos() throws ParseException {
         try {
             JDBCUtil.init(configArquivo);
             conexao = JDBCUtil.getConnection();
@@ -191,13 +194,27 @@ public class Pedido {
 
             while (rs.next()) {
                 Pedido pedido = new Pedido();
+                
+                pedido.setCriadoEm(rs.getString("criadoEm"));
+                pedido.setFechadoEm(rs.getString("fechadoEm"));
+                
+                Date dataCriadoEm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(pedido.getCriadoEm());
+                String dataCriadoEmFormatada = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCriadoEm);
+                pedido.setCriadoEm(dataCriadoEmFormatada);
+                
+                if (pedido.getFechadoEm() != null){
+                    Date dataFechadoEm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(pedido.getFechadoEm());
+                    String dataFechadoEmFormatada = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataFechadoEm);
+                    pedido.setFechadoEm(dataFechadoEmFormatada);
+                } 
+                
                 pedido.setPedidoId(rs.getInt("idPedido"));
                 pedido.setPedidoStatus(rs.getString("pedidoStatus"));
                 pedido.setPedidoNomeCliente(rs.getString("nomeCliente"));
                 pedido.setPedidoTelefoneCliente(rs.getString("telefoneCliente"));
                 pedido.setUsuarioId(rs.getInt("usuarioId"));
                 pedido.setPedidoTotal(rs.getFloat("valorTotal"));
-
+                
                 lista.add(pedido);
             }
 

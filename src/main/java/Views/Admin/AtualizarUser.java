@@ -34,7 +34,7 @@ public class AtualizarUser extends javax.swing.JFrame {
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-
+        
         for (int i = 0; i < listaUsuarios.size(); i++) {
             model.addRow(new Object[]{
                 listaUsuarios.get(i).getUsuarioId(),
@@ -140,10 +140,7 @@ public class AtualizarUser extends javax.swing.JFrame {
 
         tbl_usuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Nome", "Email", "Login", "Tipo"
@@ -158,6 +155,11 @@ public class AtualizarUser extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tbl_usuarios);
+        if (tbl_usuarios.getColumnModel().getColumnCount() > 0) {
+            tbl_usuarios.getColumnModel().getColumn(0).setMinWidth(10);
+            tbl_usuarios.getColumnModel().getColumn(0).setPreferredWidth(45);
+            tbl_usuarios.getColumnModel().getColumn(0).setMaxWidth(100);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

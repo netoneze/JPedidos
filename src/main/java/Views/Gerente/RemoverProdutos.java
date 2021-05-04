@@ -92,6 +92,11 @@ public class RemoverProdutos extends javax.swing.JFrame {
         });
         tbl_produtos.setSurrendersFocusOnKeystroke(true);
         jScrollPane2.setViewportView(tbl_produtos);
+        if (tbl_produtos.getColumnModel().getColumnCount() > 0) {
+            tbl_produtos.getColumnModel().getColumn(0).setMinWidth(40);
+            tbl_produtos.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tbl_produtos.getColumnModel().getColumn(0).setMaxWidth(40);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

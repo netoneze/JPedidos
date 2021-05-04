@@ -88,6 +88,11 @@ public class RemoverUser extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbl_usuarios);
+        if (tbl_usuarios.getColumnModel().getColumnCount() > 0) {
+            tbl_usuarios.getColumnModel().getColumn(0).setMinWidth(10);
+            tbl_usuarios.getColumnModel().getColumn(0).setPreferredWidth(45);
+            tbl_usuarios.getColumnModel().getColumn(0).setMaxWidth(100);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

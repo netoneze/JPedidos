@@ -43,11 +43,7 @@ public class ListarPedidos extends javax.swing.JFrame {
         
         model.setRowCount(0);
         model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();
-        
-        tbl_pedidos.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tbl_pedidos.getColumnModel().getColumn(3).setPreferredWidth(10);
-        tbl_pedidos.getColumnModel().getColumn(4).setPreferredWidth(10);
+        model.fireTableDataChanged();        
         
         for (int i = 0; i < pedidoController.listaPedidos().size(); i++) {
             
@@ -112,13 +108,25 @@ public class ListarPedidos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbl_pedidos);
         if (tbl_pedidos.getColumnModel().getColumnCount() > 0) {
-            tbl_pedidos.getColumnModel().getColumn(0).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(0).setMinWidth(10);
+            tbl_pedidos.getColumnModel().getColumn(0).setPreferredWidth(35);
+            tbl_pedidos.getColumnModel().getColumn(0).setMaxWidth(50);
             tbl_pedidos.getColumnModel().getColumn(1).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(2).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(3).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(4).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(5).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(6).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(2).setMinWidth(50);
+            tbl_pedidos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tbl_pedidos.getColumnModel().getColumn(2).setMaxWidth(100);
+            tbl_pedidos.getColumnModel().getColumn(3).setMinWidth(30);
+            tbl_pedidos.getColumnModel().getColumn(3).setPreferredWidth(85);
+            tbl_pedidos.getColumnModel().getColumn(3).setMaxWidth(100);
+            tbl_pedidos.getColumnModel().getColumn(4).setMinWidth(60);
+            tbl_pedidos.getColumnModel().getColumn(4).setPreferredWidth(65);
+            tbl_pedidos.getColumnModel().getColumn(4).setMaxWidth(70);
+            tbl_pedidos.getColumnModel().getColumn(5).setMinWidth(70);
+            tbl_pedidos.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tbl_pedidos.getColumnModel().getColumn(5).setMaxWidth(120);
+            tbl_pedidos.getColumnModel().getColumn(6).setMinWidth(70);
+            tbl_pedidos.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tbl_pedidos.getColumnModel().getColumn(6).setMaxWidth(120);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

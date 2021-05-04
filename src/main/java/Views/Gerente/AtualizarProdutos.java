@@ -68,12 +68,10 @@ public class AtualizarProdutos extends javax.swing.JFrame {
 
         tbl_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nome curto", "Descrição", "Preço unitário"
+                "ID", "Nome ", "Descrição", "Preço unitário"
             }
         ) {
             Class[] types = new Class [] {
@@ -93,6 +91,14 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         });
         tbl_produtos.setSurrendersFocusOnKeystroke(true);
         jScrollPane2.setViewportView(tbl_produtos);
+        if (tbl_produtos.getColumnModel().getColumnCount() > 0) {
+            tbl_produtos.getColumnModel().getColumn(0).setMinWidth(30);
+            tbl_produtos.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tbl_produtos.getColumnModel().getColumn(0).setMaxWidth(50);
+            tbl_produtos.getColumnModel().getColumn(1).setMinWidth(100);
+            tbl_produtos.getColumnModel().getColumn(1).setPreferredWidth(110);
+            tbl_produtos.getColumnModel().getColumn(1).setMaxWidth(120);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

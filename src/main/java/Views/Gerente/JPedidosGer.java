@@ -40,6 +40,7 @@ public class JPedidosGer extends javax.swing.JFrame {
         btn_inserir = new javax.swing.JButton();
         btn_atualizar = new javax.swing.JButton();
         btn_remover = new javax.swing.JButton();
+        btn_inserirpacote = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -73,18 +74,28 @@ public class JPedidosGer extends javax.swing.JFrame {
             }
         });
 
+        btn_inserirpacote.setText("Inserir Pacote ");
+        btn_inserirpacote.setToolTipText("");
+        btn_inserirpacote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_inserirpacoteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(175, 175, 175)
+                .addGap(109, 109, 109)
                 .addComponent(btn_inserir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(64, 64, 64)
+                .addComponent(btn_inserirpacote, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
                 .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(btn_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addGap(80, 80, 80))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +104,8 @@ public class JPedidosGer extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_inserir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_inserirpacote, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -238,6 +250,13 @@ public class JPedidosGer extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_sairActionPerformed
 
+    private void btn_inserirpacoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inserirpacoteActionPerformed
+        InserirPacoteProduto telaPacoteProduto = new InserirPacoteProduto(usuarioId);
+        telaPacoteProduto.setLayout(new BorderLayout());
+        telaPacoteProduto.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_inserirpacoteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -277,6 +296,7 @@ public class JPedidosGer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_inserir;
+    private javax.swing.JButton btn_inserirpacote;
     private javax.swing.JButton btn_listar;
     private javax.swing.JButton btn_remover;
     private javax.swing.JButton btn_sair;

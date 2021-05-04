@@ -212,13 +212,18 @@ public class ListarPedidos extends javax.swing.JFrame {
         int row = tbl_pedidos.getSelectedRow();
         String nomeCliente = String.valueOf(tbl_pedidos.getValueAt(row, 1));
         int id = row + 1;
-        if (pedidoController.alteraPedido("fechado", id, nomeCliente)){
-            JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso", "Pedido Fechado", JOptionPane.PLAIN_MESSAGE);
-        }
-        try {
-            atualizaTabelaPedido("update");
-        } catch (ParseException ex) {
-            Logger.getLogger(ListarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        String colunaFechadoEm = String.valueOf(tbl_pedidos.getValueAt(row, 6));
+        if (!colunaFechadoEm.equals("Ainda aberto")){
+            JOptionPane.showMessageDialog(null, "Pedido já foi fechado", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (pedidoController.alteraPedido("fechado", id, nomeCliente)){
+                JOptionPane.showMessageDialog(null, "Pedido fechado com sucesso", "Pedido Fechado", JOptionPane.PLAIN_MESSAGE);
+            }
+            try {
+                atualizaTabelaPedido("update");
+            } catch (ParseException ex) {
+                Logger.getLogger(ListarPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btn_fechar_pedidoActionPerformed
 

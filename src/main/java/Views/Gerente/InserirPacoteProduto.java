@@ -5,7 +5,6 @@
  */
 package Views.Gerente;
 
-import Views.Funcionario.*;
 import Controllers.PedidoController;
 import Controllers.ProdutoController;
 import java.awt.BorderLayout;

@@ -63,16 +63,22 @@ public class InserirPacoteProduto extends javax.swing.JFrame {
         }
     }
     
-    public void adicionaNaTabela(String mode) {
+    public boolean adicionaNaTabela(String mode) {
         String tipo = productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoNome();
         Float preco = productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco();
         int quantidade = (int) jSpinnerQuantidade.getValue();
-        float valor = quantidade * preco;
-        model.setValueAt(tipo, linha, 0);
-        model.setValueAt(quantidade, linha, 1);
-        model.setValueAt(valor, linha, 2);
-        selectedProducts.add(this.productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()));
-        this.model = (DefaultTableModel) tbl_pedidos.getModel();
+        if (quantidade <= 0){
+            JOptionPane.showMessageDialog(null, "Quantidade inválida", "Campo inválido", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            float valor = quantidade * preco;
+            model.setValueAt(tipo, linha, 0);
+            model.setValueAt(quantidade, linha, 1);
+            model.setValueAt(valor, linha, 2);
+            selectedProducts.add(this.productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()));
+            this.model = (DefaultTableModel) tbl_pedidos.getModel();
+        }
+        return true;
     }
    
     
@@ -251,6 +257,7 @@ public class InserirPacoteProduto extends javax.swing.JFrame {
             }
         });
 
+        field_total.setText("0");
         field_total.setToolTipText("");
         field_total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,34 +363,39 @@ public class InserirPacoteProduto extends javax.swing.JFrame {
         String nome = field_nome.getText();
         float preco = Float.valueOf(field_total.getText());
         String descricao = "";
-        if (preco < colValor) {
+        if (preco < colValor * 0.70) {
             JOptionPane.showMessageDialog(
                 null,
                 "Valor menor que o permitido.",
                 "Total inválido",
                 JOptionPane.ERROR_MESSAGE
             );
-        }
-        
-        for(int i = 0 ; i < linha ; i++){
-            descricao += tbl_pedidos.getValueAt(i, 1) + " " + tbl_pedidos.getValueAt(i, 0);
-            if(i != linha - 1 ){
-                descricao += ", ";
+        } else if (nome.equals("")){
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Nome inválido, tente novamente", 
+                    "Nome inválido", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        } else {
+            for(int i = 0 ; i < linha ; i++){
+                descricao += tbl_pedidos.getValueAt(i, 1) + " " + tbl_pedidos.getValueAt(i, 0);
+                if(i != linha - 1 ){
+                    descricao += ", ";
+                }
             }
-        }
-        
-        productController.criaProduto(nome, preco, descricao);
-        
-        JOptionPane.showMessageDialog(
-            null,
-            "Pacote salvo com sucesso!",
-            "Sucesso",
-            JOptionPane.PLAIN_MESSAGE
-        ); 
-        
 
-        limpaCampos();
-        
+            productController.criaProduto(nome, preco, descricao);
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Pacote salvo com sucesso!",
+                "Sucesso",
+                JOptionPane.PLAIN_MESSAGE
+            ); 
+            
+            limpaCampos();
+       }     
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     private void jComboBoxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoProdutoActionPerformed
@@ -391,10 +403,11 @@ public class InserirPacoteProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxTipoProdutoActionPerformed
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
-        this.adicionaNaTabela("update");
-        linha++;
-        this.calculaPrecoTotal();
-        ItensUI(true);
+        if (this.adicionaNaTabela("update")){
+            linha++;
+            this.calculaPrecoTotal();
+            ItensUI(true);
+        }
     }//GEN-LAST:event_btn_adicionarActionPerformed
 
     private void field_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_totalActionPerformed

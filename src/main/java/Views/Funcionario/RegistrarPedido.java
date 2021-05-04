@@ -53,7 +53,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
     public void calculaPrecoTotal() {
         float colValor = 0;
         for (int i = 0; i < linha; i++) {
-            colValor += Float.valueOf(String.valueOf(tbl_pedidos.getValueAt(i, 2)));
+            colValor += Float.valueOf(String.valueOf(tbl_pedidos.getValueAt(i, 3)));
         }
         label_total.setText(String.valueOf(colValor));
     }
@@ -66,30 +66,54 @@ public class RegistrarPedido extends javax.swing.JFrame {
         }
     }
     
-    public void adicionaNaTabela(String mode) {
+    public boolean adicionaNaTabela(String mode) {
         String tipo = productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoNome();
+        String descricao = productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoDescricao();
         Float preco = productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()).getProdutoPreco();
         int quantidade = (int) jSpinnerQuantidade.getValue();
-        float valor = quantidade * preco;
-        model.setValueAt(tipo, linha, 0);
-        model.setValueAt(quantidade, linha, 1);
-        model.setValueAt(valor, linha, 2);
-        selectedProducts.add(this.productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()));
-        this.model = (DefaultTableModel) tbl_pedidos.getModel();
+        if (quantidade <= 0){
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Quantidade inválida, tente novamente", 
+                    "Quantidade inválida", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        } else {
+            float valor = quantidade * preco;
+            model.setValueAt(tipo, linha, 0);
+            model.setValueAt(quantidade, linha, 1);
+            model.setValueAt(descricao, linha, 2);
+            model.setValueAt(valor, linha, 3);            
+            selectedProducts.add(this.productController.listaProdutos().get(jComboBoxTipoProduto.getSelectedIndex()));
+            this.model = (DefaultTableModel) tbl_pedidos.getModel();
+        }
+        return true;
     }
     
-    public void adicionaNomeTelefoneNaLabel(){
+    public boolean adicionaNomeTelefoneNaLabel(){
         String nome = field_nomecliente.getText();
         String telefone = field_telefonecliente.getText();
-        label_nome.setText(nome);
-        label_telefone.setText(telefone);
+        if (nome.equals("") || telefone.equals("")){
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Nome ou Telefone inválidos, tente novamente", 
+                    "Campos inválidos", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        } else {
+            label_nome.setText(nome);
+            label_telefone.setText(telefone);
+        }
+        return true;
     }
     
     public void ItensUI(boolean A, boolean B, boolean C, boolean D, boolean E){
         btn_addnometelefone.setEnabled(A); 
         field_nomecliente.setEditable(B);
         field_telefonecliente.setEditable(C);
-        btn_calculatotal.setEnabled(D);
+        btn_adicionar.setEnabled(D);
         btn_salvar.setEnabled(E);
     }
     
@@ -128,7 +152,6 @@ public class RegistrarPedido extends javax.swing.JFrame {
         label_telefone = new javax.swing.JLabel();
         btn_adicionar = new javax.swing.JButton();
         label_total = new javax.swing.JLabel();
-        btn_calculatotal = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -243,6 +266,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         });
 
         btn_salvar.setBackground(new java.awt.Color(51, 153, 255));
+        btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btn_salvar.setText("Salvar");
         btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,34 +276,34 @@ public class RegistrarPedido extends javax.swing.JFrame {
 
         tbl_pedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Tipo", "Quantidade", "Valor"
+                "Tipo", "Quantidade", "Descrição", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -294,7 +318,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         if (tbl_pedidos.getColumnModel().getColumnCount() > 0) {
             tbl_pedidos.getColumnModel().getColumn(0).setResizable(false);
             tbl_pedidos.getColumnModel().getColumn(1).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(2).setResizable(false);
+            tbl_pedidos.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -324,13 +348,6 @@ public class RegistrarPedido extends javax.swing.JFrame {
         label_total.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         label_total.setText("00.00");
 
-        btn_calculatotal.setText("Calcular Total");
-        btn_calculatotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_calculatotalActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -343,9 +360,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_total, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_calculatotal)
-                .addGap(11, 11, 11)
-                .addComponent(btn_salvar)
+                .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -397,7 +412,6 @@ public class RegistrarPedido extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_calculatotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(label_total)
@@ -428,9 +442,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 "Cliente inválido",
                 JOptionPane.ERROR_MESSAGE
             );
-            ItensUI(true, true, true, true, true);
-        } else {
-            
+            ItensUI(true, true, true, false, false);
+        } else {            
             orderController.criaPedido(nomeCliente, telefoneCliente, total, Integer.parseInt(this.usuarioId), selectedProducts);
             JOptionPane.showMessageDialog(
                 null,
@@ -445,8 +458,9 @@ public class RegistrarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     private void btn_addnometelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addnometelefoneActionPerformed
-        adicionaNomeTelefoneNaLabel();
-        ItensUI(false, false, false, false, false);
+        if (adicionaNomeTelefoneNaLabel()){
+            ItensUI(false, false, false, true, false);
+        }
     }//GEN-LAST:event_btn_addnometelefoneActionPerformed
 
     private void jComboBoxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoProdutoActionPerformed
@@ -454,15 +468,12 @@ public class RegistrarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxTipoProdutoActionPerformed
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
-        this.adicionaNaTabela("update");
-        linha++;
-        ItensUI(false, false, false, true, false);
+        if(this.adicionaNaTabela("update")){
+            linha++;
+            calculaPrecoTotal();
+            ItensUI(false, false, false, true, true);
+        }
     }//GEN-LAST:event_btn_adicionarActionPerformed
-
-    private void btn_calculatotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calculatotalActionPerformed
-        calculaPrecoTotal();
-        ItensUI(false, false, false, true, true);
-    }//GEN-LAST:event_btn_calculatotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -506,7 +517,6 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private javax.swing.JPanel Jpanel;
     private javax.swing.JButton btn_addnometelefone;
     private javax.swing.JButton btn_adicionar;
-    private javax.swing.JButton btn_calculatotal;
     private javax.swing.JButton btn_salvar;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JTextField field_nomecliente;

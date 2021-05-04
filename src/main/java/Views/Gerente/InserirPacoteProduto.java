@@ -41,6 +41,8 @@ public class InserirPacoteProduto extends javax.swing.JFrame {
 
     public void limpaCampos(){
         label_preco.setText("00.00");
+        field_nome.setText("");
+        field_total.setText("0");
         this.model.setRowCount(0);
         this.model.setRowCount(18);
         this.linha = 0;
@@ -353,9 +355,9 @@ public class InserirPacoteProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
-        JPedidosFunc novaTelaFuncionario = new JPedidosFunc(usuarioId);
-        novaTelaFuncionario.setLayout(new BorderLayout());
-        novaTelaFuncionario.setVisible(true);
+        JPedidosGer novaTelaGerente = new JPedidosGer(usuarioId);
+        novaTelaGerente.setLayout(new BorderLayout());
+        novaTelaGerente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
 
@@ -377,7 +379,15 @@ public class InserirPacoteProduto extends javax.swing.JFrame {
                     "Nome inválido", 
                     JOptionPane.ERROR_MESSAGE
             );
-        } else {
+        } else if (linha < 1){
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Quantidade de produtos inválida", 
+                    "Operação inválida", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        else {
             for(int i = 0 ; i < linha ; i++){
                 descricao += tbl_pedidos.getValueAt(i, 1) + " " + tbl_pedidos.getValueAt(i, 0);
                 if(i != linha - 1 ){

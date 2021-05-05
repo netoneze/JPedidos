@@ -43,8 +43,12 @@ public class PedidoController {
         return pedido2.alterarPedido(pedido2);
     }
     
-    public ArrayList<Produto> retornaArrayTipoPedido() {
-        ArrayList<Produto> ProdutosLista = new ArrayList<Produto>();
-        return ProdutosLista;
+    public ArrayList<Produto> trataQuantidadeProdutos(ArrayList<Produto> produtosSelecionados, int quantidade, int index){
+        Produto produto = new Produto();
+        produto = produtosSelecionados.get(index);
+        produto.setProdutoQuantidade(quantidade);
+        produtosSelecionados.set(index, produto);
+        
+        return produtosSelecionados;
     }
 }

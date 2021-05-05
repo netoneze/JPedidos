@@ -23,6 +23,7 @@ public class Produto {
     private String nome;
     private String descricao;
     private float precoUnid;
+    private int quantidade;
     
     private static final String caminho = System.getProperty("user.dir");
     private static final File configArquivo = new File(caminho + "/src/main/java/Utils/configuracaobd.properties");
@@ -36,11 +37,12 @@ public class Produto {
     public Produto(){
     }
     
-    public Produto(int id, String nome, String descricao, float precoUnid){
+    public Produto(int id, String nome, String descricao, float precoUnid, int quantidate){
         this.produtoId = id;
         this.nome = nome;
         this.descricao = descricao;
         this.precoUnid = precoUnid;
+        this.quantidade = quantidade;
     }
     
     @Override
@@ -68,6 +70,10 @@ public class Produto {
         return precoUnid;
     }
 
+    public int getProdutoQuantidade() {
+        return quantidade;
+    }
+    
     public void setProdutoId(int produtoId) {
         this.produtoId = produtoId;
     }
@@ -82,6 +88,10 @@ public class Produto {
 
     public void setProdutoPreco(float produtoPreco) {
         this.precoUnid = produtoPreco;
+    }
+    
+    public void setProdutoQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
     
     public ArrayList<Produto> listaProdutos() {

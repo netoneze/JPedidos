@@ -162,11 +162,12 @@ public class Pedido {
                 System.out.println("Inserido ID: " + generatedKey);
                 preparedStatement.close();
 
-                for(int n=0 ; n<listaDeProduto.size() ; n++){
-                    sql = "insert into pedido_has_produto(pedido_idPedido, produto_id) values(?,?)";
+                for(int i = 0 ; i < listaDeProduto.size() ; i++){
+                    sql = "insert into pedido_has_produto(pedido_idPedido, produto_id, quantidade_produto) values(?,?,?)";
                     preparedStatement = conexao.prepareStatement(sql);
                     preparedStatement.setInt(1, generatedKey);
-                    preparedStatement.setInt(2, listaDeProduto.get(n).getProdudoId());
+                    preparedStatement.setInt(2, listaDeProduto.get(i).getProdudoId());
+                    preparedStatement.setInt(3, listaDeProduto.get(i).getProdutoQuantidade());
                     preparedStatement.execute();
                     preparedStatement.close();
                 }

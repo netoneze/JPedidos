@@ -44,7 +44,8 @@ DROP TABLE IF EXISTS order_product;
 CREATE table pedido_has_produto(
     pedido_idPedido INT NOT NULL,
     produto_id INT NOT NULL,
-    FOREIGN KEY(pedido_idPedido) REFERENCES pedido(idPedido), 
+    quantidade_produto INT NOT NULL,
+    FOREIGN KEY(pedido_idPedido) REFERENCES pedido(idPedido),
     FOREIGN KEY(produto_id) REFERENCES produto(produtoId) ON DELETE CASCADE
 );
 

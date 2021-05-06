@@ -47,14 +47,16 @@ public class UsuarioController {
 
     public boolean criaUsuario(String name, String email, String username, String senha, String tipo) {
         Usuario usuario = new Usuario();
-        
-        usuario.setUsuarioNome(name);
-        usuario.setUsuarioLogin(username);
-        usuario.setUsuarioEmail(email);
-        usuario.setUsuarioPassword(senha);
-        usuario.setUsuarioTipo(tipo);
-        
-        return usuario.criaUsuario(usuario);
+        if ((tipo.equals("gerente") || tipo.equals("administrador") || tipo.equals("funcionario"))) {
+            usuario.setUsuarioNome(name);
+            usuario.setUsuarioLogin(username);
+            usuario.setUsuarioEmail(email);
+            usuario.setUsuarioPassword(senha);
+            usuario.setUsuarioTipo(tipo);
+
+            return usuario.criaUsuario(usuario);
+        }
+        return false;
     }
 
     public ArrayList<Usuario> listaUsuario() {

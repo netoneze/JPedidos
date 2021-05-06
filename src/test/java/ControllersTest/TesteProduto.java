@@ -4,104 +4,111 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Controllers.ProdutoDAO;
-import Models.Produto;
+import Controllers.ProdutoController;
 
 public class TesteProduto {
 	@Test
 	public void testProduto() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, "x-salada", "pao, carne, queijo e salada", 12.50f);
+		ProdutoController produtoController = new ProdutoController();
 
-		assertTrue(prod.criaProduto(produto));
+		assertTrue(produtoController.criaProduto("x-salada", 15.99f, "pao, carne, queijo e salada"));
 	}
 
 	@Test
 	public void testProdutoVazio() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto();
+		ProdutoController produtoController = new ProdutoController();
 
-		assertFalse(prod.criaProduto(produto));
+		assertFalse(produtoController.criaProduto("", 0f, ""));
 	}
 
 	@Test
 	public void testProdutoNome() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, null, "pao, carne, queijo e salada", 12.50f);
+		ProdutoController produtoController = new ProdutoController();
 
-		assertFalse(prod.criaProduto(produto));
+                assertThrows(NullPointerException.class, () -> {
+                    assertFalse(produtoController.criaProduto(null, 15.99f, "pao, carne, queijo e salada"));
+                });
 	}
 
 	@Test
 	public void testProdutoDesc() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, "x-salada", null, 12.50f);
+		ProdutoController produtoController = new ProdutoController();
 
-		assertFalse(prod.criaProduto(produto));
+                assertThrows(NullPointerException.class, () -> {
+                    assertFalse(produtoController.criaProduto("x-salada", 15.99f, null));
+                });
 	}
 
 	@Test
 	public void testDelProd() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, "x-salada", "pao, carne, queijo e salada", 12.50f);
+		ProdutoController produtoController = new ProdutoController();
+		int produtoId = 1;
 
-		assertTrue(prod.deletaProduto(produto));
+		assertTrue(produtoController.deletaProduto(produtoId, "x-salada", "pao, carne, queijo e salada"));
 	}
 
 	@Test
 	public void testDelProdVazio() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto();
-
-		assertFalse(prod.deletaProduto(produto));
+		ProdutoController produtoController = new ProdutoController();
+                int produtoId = 1;
+                
+		assertFalse(produtoController.deletaProduto(produtoId, "", ""));
 	}
 
 	@Test
 	public void testDelProdNome() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, null, "pao, carne, queijo e salada", 12.50f);
+		ProdutoController produtoController = new ProdutoController();
+                int produtoId = 1;
 
-		assertFalse(prod.deletaProduto(produto));
+                assertThrows(NullPointerException.class, () -> {
+                    assertFalse(produtoController.deletaProduto(produtoId, null, "pao, carne, queijo e salada"));
+                });
 	}
 
 	@Test
 	public void testDelProdDesc() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, "x-salada", null, 12.50f);
+		ProdutoController produtoController = new ProdutoController();
+                int produtoId = 1;
 
-		assertFalse(prod.deletaProduto(produto));
+                assertThrows(NullPointerException.class, () -> {
+                    assertFalse(produtoController.deletaProduto(produtoId, "x=salada", null));
+                });
 	}
 
 	@Test
 	public void testAttProd() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, "x-salada", "pao, carne, queijo e salada", 12.50f);
-
-		assertTrue(prod.atualizaProduto(produto));
+		ProdutoController produtoController = new ProdutoController();
+		int produtoId = 2;
+                
+		assertTrue(produtoController.atualizaProduto("x-salada PLUS", 15.99f, "pao, carne, queijo e muito mais salada", produtoId));
 	}
 
 	@Test
 	public void testAttProdVazio() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto();
-
-		assertFalse(prod.atualizaProduto(produto));
+		ProdutoController produtoController = new ProdutoController();
+		int produtoId = 2;
+                
+		assertFalse(produtoController.atualizaProduto("", 0f, "", produtoId));
 	}
 
 	@Test
 	public void testAttProdNome() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, null, "pao, carne, queijo e salada", 12.50f);
-
-		assertFalse(prod.atualizaProduto(produto));
+		ProdutoController produtoController = new ProdutoController();
+		int produtoId = 2;
+                
+		assertThrows(NullPointerException.class, () -> {
+                    produtoController.atualizaProduto(null, 0f, "pao, carne, queijo e salada", produtoId);
+                });
 	}
 
 	@Test
 	public void testAttProdDesc() {
-		ProdutoDAO prod = new ProdutoDAO();
-		Produto produto = new Produto(1, "x-salada", null, 12.50f);
-
-		assertFalse(prod.atualizaProduto(produto));
+		ProdutoController produtoController = new ProdutoController();
+		int produtoId = 2;
+                
+                assertThrows(NullPointerException.class, () -> {
+                    assertFalse(produtoController.atualizaProduto("x-salada", 15.99f, null, produtoId));
+                });
 	}
 
 }

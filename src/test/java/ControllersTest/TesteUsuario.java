@@ -4,86 +4,49 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Controllers.UsuarioDAO;
-import Models.Usuario;
+import Controllers.UsuarioController;
 
 public class TesteUsuario {
 
 	@Test
 	public void testeCria() {
-		UsuarioDAO daoUsuario = new UsuarioDAO();
-		Usuario usuario = new Usuario();
+		UsuarioController usuarioController = new UsuarioController();
 
-		usuario.setUsuarioNome("Claudio");
-		usuario.setUsuarioLogin("admin1");
-		usuario.setUsuarioPassword("12345");
-		usuario.setUsuarioEmail("claudio@uol.com.br");
-		usuario.setUsuarioTipo("admin");
-
-		daoUsuario.criaUsuario(usuario);
+		assertTrue(usuarioController.criaUsuario("Claudio", "claudinho@bol.com.br", "claudioadmin", "123456", "administrador"));
 	}
 
 	@Test
 	public void testeAutenticaCon() {
-		UsuarioDAO daoUsuario = new UsuarioDAO();
-		Usuario usuario = new Usuario(1, "Claudio", "claudio", "12345", "claudio@uol.com.br", "admin");
+		UsuarioController usuarioController = new UsuarioController();
 
-		daoUsuario.userAutentica(usuario);
-	}
-
-	@Test
-	public void testeAutenticaSet() {
-		UsuarioDAO daoUsuario = new UsuarioDAO();
-		Usuario usuario = new Usuario();
-
-		usuario.setUsuarioNome("Claudio");
-		usuario.setUsuarioLogin("admin1");
-		usuario.setUsuarioPassword("12345");
-		usuario.setUsuarioEmail("claudio@uol.com.br");
-		usuario.setUsuarioTipo("admin");
-
-		daoUsuario.userAutentica(usuario);
+		assertTrue(usuarioController.userAutentica("claudioadmin", "123456"));
 	}
 
 	@Test
 	public void testeAlterar() {
-		UsuarioDAO daoUsuario = new UsuarioDAO();
-		Usuario usuario = new Usuario();
+		UsuarioController usuarioController = new UsuarioController();
 
-		usuario.setUsuarioNome("Claudio");
-		usuario.setUsuarioLogin("admin1");
-		usuario.setUsuarioPassword("12345");
-		usuario.setUsuarioEmail("claudio@uol.com.br");
-		usuario.setUsuarioTipo("admin");
-
-		daoUsuario.alterarUsuario(usuario);
+		assertTrue(usuarioController.alterarUsuario(4, "Claudio Ferreira", "claudinho2@bol.com.br", "claudioadmin", "administrador", "123456"));
 	}
 
 	@Test
 	public void testeDeletar() {
-		UsuarioDAO daoUsuario = new UsuarioDAO();
-		Usuario usuario = new Usuario();
+		UsuarioController usuarioController = new UsuarioController();
 
-		usuario.setUsuarioNome("Claudio");
-		usuario.setUsuarioLogin("admin1");
-		usuario.setUsuarioPassword("12345");
-		usuario.setUsuarioEmail("claudio@uol.com.br");
-		usuario.setUsuarioTipo("admin");
-
-		daoUsuario.deletarUsuario(usuario);
+		assertTrue(usuarioController.deletarUsuario(4, "Claudio Ferreira", "claudinho2@bol.com.br"));
 	}
 
 	@Test
 	public void testeEmail() {
-		UsuarioDAO daoUsuario = new UsuarioDAO();
+		UsuarioController usuarioController = new UsuarioController();
 
-		assertFalse(daoUsuario.verificaSeEmailExiste("uol@uol.com.br"));
+		assertFalse(usuarioController.verificaSeEmailExiste("bol@hotmail.com.br"));
 	}
 
 	@Test
 	public void testeLogin() {
-		UsuarioDAO daoUsuario = new UsuarioDAO();
+		UsuarioController usuarioController = new UsuarioController();
 
-		assertFalse(daoUsuario.verificaSeLoginExiste("login"));
+		assertFalse(usuarioController.verificaSeLoginExiste("login"));
 	}
 }

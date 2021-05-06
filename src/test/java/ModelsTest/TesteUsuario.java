@@ -10,9 +10,9 @@ public class TesteUsuario {
 
 	@Test
 	public void testCon() {
-		Usuario usuario = new Usuario(1, "Claudio", "admin1", "12345", "claudio@uol.com.br", "admin");
-		String res = ("1" + "\n" + "Claudio" + "\n" + "admin1" + "\n" + "12345" + "\n" + "claudio@uol.com.br" + "\n" + "admin" + "\n");
-		assertEquals(res, usuario.toString());
+		Usuario usuario = new Usuario(1, "Nelson", "nelsonadmin", "123456", "nelsontoneze@uol.com.br", "administrador");
+		String comp = ("1" + "\n" + "Nelson" + "\n" + "nelsonadmin" + "\n" + "123456" + "\n" + "nelsontoneze@uol.com.br" + "\n" + "administrador" + "\n");
+		assertEquals(comp, usuario.toString());
 	}
 	
 	@Test
@@ -20,17 +20,17 @@ public class TesteUsuario {
 		Usuario usuario = new Usuario();
 
 		usuario.setUsuarioId(1);
-		usuario.setUsuarioNome("Claudio");
-		usuario.setUsuarioLogin("admin1");
-		usuario.setUsuarioPassword("12345");
-		usuario.setUsuarioEmail("claudio@uol.com.br");
-		usuario.setUsuarioTipo("admin");
+		usuario.setUsuarioNome("Nelson");
+		usuario.setUsuarioLogin("nelsonadmin");
+		usuario.setUsuarioPassword("123456");
+		usuario.setUsuarioEmail("nelsontoneze@uol.com.br");
+		usuario.setUsuarioTipo("administrador");
 
 		assertEquals(1, usuario.getUsuarioId());
-		assertEquals("Claudio", usuario.getUsuarioNome());
-		assertEquals("admin1", usuario.getUsuarioLogin());
-		assertEquals("12345", usuario.getUsuarioPassword());
-		assertEquals("claudio@uol.com.br", usuario.getUsuarioEmail());
-		assertEquals("admin", usuario.getUsuarioTipo());
+		assertEquals("Nelson", usuario.getUsuarioNome());
+		assertEquals("nelsonadmin", usuario.getUsuarioLogin());
+		assertEquals("123456", usuario.getUsuarioPassword());
+		assertEquals("nelsontoneze@uol.com.br", usuario.getUsuarioEmail());
+		assertEquals("administrador", usuario.getUsuarioTipo());
 	}
 }

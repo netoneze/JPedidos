@@ -10,18 +10,18 @@ public class TestePedidoHasProduto {
 	
 	@Test
 	public void testSetGet() {
-		PedidoHasProduto php = new PedidoHasProduto();
-		php.setPedidoId(1);
-		php.setProdutoId(1);
-		String res = String.valueOf(php.getPedidoId()) + "\n" + String.valueOf(php.getProdutoId()) + "\n";
+		PedidoHasProduto pedidoHasProduto = new PedidoHasProduto();
+		pedidoHasProduto.setPedidoId(2);
+		pedidoHasProduto.setProdutoId(3);
+		String comp = String.valueOf(pedidoHasProduto.getPedidoId()) + "\n" + String.valueOf(pedidoHasProduto.getProdutoId()) + "\n";
 
-		assertEquals(res, php.toString());
+		assertEquals(comp, pedidoHasProduto.toString());
 	}
 	
 	@Test
 	public void testCon() {
-		PedidoHasProduto php = new PedidoHasProduto(1, 1);
+		PedidoHasProduto pedidoHasProduto = new PedidoHasProduto(2, 3);
 
-		assertEquals((1 +"\n" + 1 + "\n"), php.toString());
+		assertEquals((2 +"\n" + 3 + "\n"), pedidoHasProduto.toString());
 	}
 }

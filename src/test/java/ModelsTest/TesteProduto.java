@@ -9,7 +9,7 @@ import Models.Produto;
 public class TesteProduto {
 	@Test
 	public void prodCon() {
-		Produto produto = new Produto(1, "x-salada", "pao, carne, queijo e salada", 12.50f);
+		Produto produto = new Produto(1, "x-salada", "pao, carne, queijo e salada", 12.50f, 1);
 
 		assertEquals("1" + "\n" + "x-salada" + "\n" + "pao, carne, queijo e salada" + "\n" + 12.50f + "\n",
 				produto.toString());

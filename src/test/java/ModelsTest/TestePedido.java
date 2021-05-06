@@ -10,26 +10,26 @@ public class TestePedido {
 	
 	@Test
 	public void testSetGet() {
-		Pedido ped = new Pedido();
-		ped.setPedidoId(1);
-		ped.setUsuarioId(1);
-		ped.setCriadoEm("16:28");
-		ped.setFechadoEm("17:30");
-		ped.setPedidoNomeCliente("Claudio Duarte");
-		ped.setPedidoStatus("Aberto");
-		ped.setPedidoTelefoneCliente("11222223333");
-		String res = String.valueOf(ped.getPedidoId()) + "\n" + ped.getPedidoNomeCliente() + "\n" + ped.getPedidoTelefoneCliente() + "\n" + ped.getUsuarioId() + "\n" +
-		ped.getPedidoStatus() + "\n" + ped.getCriadoEm() + "\n" + ped.getFechadoEm() + "\n";
+		Pedido pedido = new Pedido();
+		pedido.setPedidoId(1);
+		pedido.setUsuarioId(1);
+		pedido.setCriadoEm("12/10/2021 12:00");
+		pedido.setFechadoEm("12/10/2021 12:00");
+		pedido.setPedidoNomeCliente("Nelson Toneze");
+		pedido.setPedidoStatus("Fechado");
+		pedido.setPedidoTelefoneCliente("4398489595");
+		String comp = String.valueOf(pedido.getPedidoId()) + "\n" + pedido.getPedidoNomeCliente() + "\n" + pedido.getPedidoTelefoneCliente() + "\n" + pedido.getUsuarioId() + "\n" +
+		pedido.getPedidoStatus() + "\n" + pedido.getCriadoEm() + "\n" + pedido.getFechadoEm() + "\n";
 		
-		assertEquals(res, ped.toString());
+		assertEquals(comp, pedido.toString());
 	}
 
 	
 	@Test
 	public void testCon() {
-		Pedido ped = new Pedido(1, "Claudio Duarte", "11222223333", 1, "Aberto", "16:28", "17:30");
+		Pedido pedido = new Pedido(1, "Nelson Toneze", "4398489595", 1, "Fechado", "12/10/2021 12:00", "12/10/2021 12:00");
 		
-		assertEquals((1 + "\n" + "Claudio Duarte" + "\n" + "11222223333" + "\n" + 1 + "\n" + "Aberto" + "\n" + "16:28" + "\n" + "17:30" + "\n"), ped.toString());
+		assertEquals((1 + "\n" + "Nelson Toneze" + "\n" + "4398489595" + "\n" + 1 + "\n" + "Fechado" + "\n" + "12/10/2021 12:00" + "\n" + "12/10/2021 12:00" + "\n"), pedido.toString());
 	}
 	
 }

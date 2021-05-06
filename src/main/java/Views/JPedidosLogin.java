@@ -6,7 +6,6 @@
 package Views;
 
 import Views.Admin.Admin;
-import Models.Usuario;
 import Controllers.UsuarioController;
 import Views.Funcionario.JPedidosFunc;
 import Views.Gerente.JPedidosGer;
@@ -29,39 +28,34 @@ public class JPedidosLogin extends javax.swing.JFrame {
 
     public void CuidaLogin() {
         String username = jTextField1.getText();
-        String password = new String(jPasswordField1.getPassword());
-        Usuario usuario = new Usuario();
-
-        usuario.setUsuarioLogin(username);
-        usuario.setUsuarioPassword(password);
+        String senha = new String(jPasswordField1.getPassword());
 
         UsuarioController userController = new UsuarioController();
-        Usuario resposta = userController.userAutentica(usuario);
-        
-        if (resposta != null) {          
-            if (resposta.getUsuarioTipo().equals("administrador")) {
+      
+        if (userController.userAutentica(username, senha) == true) {
+            if (userController.usuarioTipo(username, senha).equals("administrador")) {
                 Admin novaTelaAdmin = new Admin();
 
                 novaTelaAdmin.setLayout(new BorderLayout());
                 novaTelaAdmin.setVisible(true);
                 this.dispose();
             }
-            if (resposta.getUsuarioTipo().equals("funcionario")) {
-                String usuarioId = String.valueOf(resposta.getUsuarioId());
+            if (userController.usuarioTipo(username, senha).equals("funcionario")) {
+                String usuarioId = String.valueOf(userController.usuarioId(username, senha));
                 JPedidosFunc novaTelaFuncionario = new JPedidosFunc(usuarioId);
                 novaTelaFuncionario.setLayout(new BorderLayout());
                 novaTelaFuncionario.setVisible(true);
                 this.dispose();
             }
-            if (resposta.getUsuarioTipo().equals("gerente")) {
-                String usuarioId = String.valueOf(resposta.getUsuarioId());
+            if (userController.usuarioTipo(username, senha).equals("gerente")) {
+                String usuarioId = String.valueOf(userController.usuarioId(username, senha));
                 JPedidosGer novaTelaGerente = new JPedidosGer(usuarioId);
                 novaTelaGerente.setLayout(new BorderLayout());
                 novaTelaGerente.setVisible(true);
                 this.dispose();
             }
         } else {
-            System.out.println("Resposta é null. Usuario nao encontrado!");
+            System.out.println("Resposta é false. Usuario nao encontrado!");
             JOptionPane.showMessageDialog(null, "Credenciais invalidas!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -102,17 +102,17 @@ public class Usuario {
         this.tipo = usuario_tipo;
     }
     
-    public Usuario userAutentica(Usuario usuario) {
+    public Usuario userAutenticaRetornaUsuario(Usuario usuario) {
         Usuario usuario2 = new Usuario();
 
-        try {
-            JDBCUtil.init(configArquivo);
-            conexao = JDBCUtil.getConnection();
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
 
-            String sql = "select * from usuario where login = ? and senha = ?";
-            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-            preparedStatement.setString(1, usuario.getUsuarioLogin());
-            preparedStatement.setString(2, usuario.getUsuarioPassword());
+                String sql = "select * from usuario where login = ? and senha = ?";
+                PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+                preparedStatement.setString(1, usuario.getUsuarioLogin());
+                preparedStatement.setString(2, usuario.getUsuarioPassword());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -138,18 +138,56 @@ public class Usuario {
                 }
             }
 
-        } catch (ClassNotFoundException erro) {
-            System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
             return null;
-        } catch (IOException erro) {
-            System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
             return null;
-        } catch (SQLException erro) {
-            System.out.println("Falha na conexao, comando sql = " + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha na conexao, comando sql = " + erro);
             return null;
-        }
+            }
 
         return usuario2;
+        }
+    
+    public boolean userAutenticaRetornaBool(Usuario usuario) {
+        if (usuario.getUsuarioLogin() != null && usuario.getUsuarioPassword() != null){
+            try {
+                JDBCUtil.init(configArquivo);
+                conexao = JDBCUtil.getConnection();
+
+                String sql = "select * from usuario where login = ? and senha = ?";
+                PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+                preparedStatement.setString(1, usuario.getUsuarioLogin());
+                preparedStatement.setString(2, usuario.getUsuarioPassword());
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                String usuarioId = "";
+                
+                if (resultSet != null) {
+                    try {
+                        while (resultSet.next()) {
+                            usuarioId = resultSet.getString("usuarioid");
+                        }
+                        if(!usuarioId.equals("")){
+                            return true;
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println("Something went wrong trying to log in:" + ex);
+                    }
+                }
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao carregar o driver JDBC." + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar o arquivo de configuração." + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha na conexao, comando sql = " + erro);
+            }
+        }
+        return false;
     }
     
     public boolean criaUsuario(Usuario user) {

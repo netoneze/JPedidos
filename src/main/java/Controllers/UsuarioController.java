@@ -14,10 +14,35 @@ import java.util.ArrayList;
  */
 public class UsuarioController {
 
-    public Usuario userAutentica(Usuario usuario) {
+    public boolean userAutentica(String username, String senha) {
         Usuario usuario2 = new Usuario();
         
-        return usuario2.userAutentica(usuario);
+        usuario2.setUsuarioLogin(username);
+        usuario2.setUsuarioPassword(senha);
+        
+        return usuario2.userAutenticaRetornaBool(usuario2);
+    }
+    
+    public String usuarioTipo(String username, String senha) {
+        Usuario usuario2 = new Usuario();
+        
+        usuario2.setUsuarioLogin(username);
+        usuario2.setUsuarioPassword(senha);
+        
+        usuario2 = usuario2.userAutenticaRetornaUsuario(usuario2);
+        
+        return usuario2.getUsuarioTipo();
+    }
+    
+    public int usuarioId(String username, String senha) {
+        Usuario usuario2 = new Usuario();
+        
+        usuario2.setUsuarioLogin(username);
+        usuario2.setUsuarioPassword(senha);
+        
+        usuario2 = usuario2.userAutenticaRetornaUsuario(usuario2);
+        
+        return usuario2.getUsuarioId();
     }
 
     public boolean criaUsuario(String name, String email, String username, String senha, String tipo) {

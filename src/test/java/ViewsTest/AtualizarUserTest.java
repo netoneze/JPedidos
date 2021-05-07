@@ -16,7 +16,10 @@ public class AtualizarUserTest {
     
     @Test
     public void testViewAtualizarUser(){
+        String[] args = null;
         AtualizarUser telaAtualizarUser = new AtualizarUser();
+        telaAtualizarUser.main(args);
+        telaAtualizarUser.dispose();
         assertNotNull(telaAtualizarUser);
     }
     

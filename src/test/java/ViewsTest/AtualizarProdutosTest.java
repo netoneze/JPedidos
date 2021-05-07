@@ -15,8 +15,10 @@ import org.junit.jupiter.api.Test;
 public class AtualizarProdutosTest {
     @Test
     public void testViewAtualizarProdutos(){
+        String[] args = null;
         AtualizarProdutos telaAtualizarProdutos = new AtualizarProdutos("1");
-        
+        telaAtualizarProdutos.main(args);
+        telaAtualizarProdutos.dispose();
         assertNotNull(telaAtualizarProdutos);
     }
 }

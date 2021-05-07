@@ -17,7 +17,10 @@ public class JPedidosLoginTest {
     
     @Test
     public void testViewLogin(){
+        String[] args = null;
         JPedidosLogin telaLogin = new JPedidosLogin();
+        telaLogin.main(args);
+        telaLogin.dispose();
         assertNotNull(telaLogin);
     }
     

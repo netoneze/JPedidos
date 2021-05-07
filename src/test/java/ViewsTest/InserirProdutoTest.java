@@ -16,8 +16,10 @@ public class InserirProdutoTest {
     
     @Test
     public void testViewInserirProdutos(){
+        String[] args = null;
         InserirProduto telaInserirProduto = new InserirProduto("1");
-                
+        telaInserirProduto.main(args);
+        telaInserirProduto.dispose();
         assertNotNull(telaInserirProduto);
     }
 }

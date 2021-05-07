@@ -16,7 +16,10 @@ public class InserirUserTest {
     
     @Test
     public void testViewInserirUser(){
+        String[] args = null;
         InserirUser telaInserirUser = new InserirUser();
+        telaInserirUser.main(args);
+        telaInserirUser.dispose();
         assertNotNull(telaInserirUser);
     }
 }

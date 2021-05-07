@@ -17,7 +17,10 @@ public class AdminTest {
     
     @Test
     public void testViewAdmin(){
+        String[] args = null;
         Admin telaAdmin = new Admin();
+        telaAdmin.main(args);
+        telaAdmin.dispose();
         assertNotNull(telaAdmin);
     }
 }

@@ -16,8 +16,10 @@ public class JPedidosGerTest {
     
     @Test
     public void testViewJPedidosGerente(){
+        String[] args = null;
         JPedidosGer telaJPedidosGerente = new JPedidosGer("1");
-        
+        telaJPedidosGerente.main(args);
+        telaJPedidosGerente.dispose();
         assertNotNull(telaJPedidosGerente);
     }
 }

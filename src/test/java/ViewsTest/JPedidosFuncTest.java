@@ -16,8 +16,10 @@ public class JPedidosFuncTest {
     
     @Test
     public void testViewFuncionario(){
+        String[] args = null;
         JPedidosFunc telaJPedidosFuncionario = new JPedidosFunc("1");
-        
+        telaJPedidosFuncionario.main(args);
+        telaJPedidosFuncionario.dispose();
         assertNotNull(telaJPedidosFuncionario);
     }
 }

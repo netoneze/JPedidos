@@ -16,8 +16,10 @@ public class RegistrarPedidoTest {
     
     @Test
     public void testViewRegistrarPedido(){
+        String[] args = null;
         RegistrarPedido telaRegistrarPedido = new RegistrarPedido("1");
-        
+        telaRegistrarPedido.main(args);
+        telaRegistrarPedido.dispose();
         assertNotNull(telaRegistrarPedido);
     }
 }

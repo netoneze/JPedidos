@@ -16,7 +16,10 @@ public class RemoverUserTest {
     
     @Test
     public void testViewInserirUser(){
+        String[] args = null;
         RemoverUser telaRemoverUser = new RemoverUser();
+        telaRemoverUser.main(args);
+        telaRemoverUser.dispose();
         assertNotNull(telaRemoverUser);
     }
 }

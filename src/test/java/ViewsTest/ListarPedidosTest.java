@@ -17,15 +17,18 @@ public class ListarPedidosTest {
     
     @Test
     public void testViewListarPedidosComoFuncionario() throws ParseException{
+        String[] args = null;
         ListarPedidos telaListarPedidos = new ListarPedidos("1", "funcionario");
-        
+        telaListarPedidos.main(args);
+        telaListarPedidos.dispose();
         assertNotNull(telaListarPedidos);
     }
     
     @Test
     public void testViewListarPedidos() throws ParseException{
+        String[] args = null;
         ListarPedidos telaListarPedidos = new ListarPedidos("1", "");
-        
+        telaListarPedidos.main(args);
         assertNotNull(telaListarPedidos);
     }
 }

@@ -16,8 +16,10 @@ public class RemoverProdutosTest {
     
     @Test
     public void testViewRemoverProdutos(){
+        String[] args = null;
         RemoverProdutos telaRemoverProdutos = new RemoverProdutos("1");
-        
+        telaRemoverProdutos.main(args);
+        telaRemoverProdutos.dispose();
         assertNotNull(telaRemoverProdutos);
     }
 }

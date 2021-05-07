@@ -95,8 +95,8 @@
                   <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                   <Component id="btn_inserir" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                  <Component id="btn_inserirpacote" min="-2" pref="112" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="btn_inserirpacote" min="-2" pref="128" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="btn_atualizar" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace pref="74" max="32767" attributes="0"/>
                   <Component id="btn_remover" min="-2" pref="100" max="-2" attributes="0"/>

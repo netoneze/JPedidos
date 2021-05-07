@@ -8,6 +8,9 @@ package Views.Funcionario;
 import Controllers.PedidoController;
 import Controllers.ProdutoController;
 import java.awt.BorderLayout;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -55,7 +58,8 @@ public class RegistrarPedido extends javax.swing.JFrame {
         for (int i = 0; i < linha; i++) {
             colValor += Float.valueOf(String.valueOf(tbl_pedidos.getValueAt(i, 3)));
         }
-        label_total.setText(String.valueOf(colValor));
+        BigDecimal colValorFormatado = new BigDecimal(colValor).setScale(2,RoundingMode.HALF_UP);
+        label_total.setText(String.valueOf(colValorFormatado));
     }
     
     public void insereProdutoCombox() {
@@ -297,7 +301,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Tipo", "Quantidade", "Descrição", "Valor"
+                "Tipo", "Qtd", "Descrição", "Valor"
             }
         ) {
             Class[] types = new Class [] {
@@ -319,11 +323,13 @@ public class RegistrarPedido extends javax.swing.JFrame {
         if (tbl_pedidos.getColumnModel().getColumnCount() > 0) {
             tbl_pedidos.getColumnModel().getColumn(0).setResizable(false);
             tbl_pedidos.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tbl_pedidos.getColumnModel().getColumn(1).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tbl_pedidos.getColumnModel().getColumn(1).setMinWidth(40);
+            tbl_pedidos.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tbl_pedidos.getColumnModel().getColumn(1).setMaxWidth(45);
             tbl_pedidos.getColumnModel().getColumn(2).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(3).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(3).setPreferredWidth(35);
+            tbl_pedidos.getColumnModel().getColumn(3).setMinWidth(90);
+            tbl_pedidos.getColumnModel().getColumn(3).setPreferredWidth(90);
+            tbl_pedidos.getColumnModel().getColumn(3).setMaxWidth(120);
         }
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

@@ -320,8 +320,9 @@ public class RegistrarPedido extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbl_pedidos);
         if (tbl_pedidos.getColumnModel().getColumnCount() > 0) {
-            tbl_pedidos.getColumnModel().getColumn(0).setResizable(false);
-            tbl_pedidos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbl_pedidos.getColumnModel().getColumn(0).setMinWidth(5);
+            tbl_pedidos.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tbl_pedidos.getColumnModel().getColumn(0).setMaxWidth(200);
             tbl_pedidos.getColumnModel().getColumn(1).setMinWidth(40);
             tbl_pedidos.getColumnModel().getColumn(1).setPreferredWidth(40);
             tbl_pedidos.getColumnModel().getColumn(1).setMaxWidth(45);

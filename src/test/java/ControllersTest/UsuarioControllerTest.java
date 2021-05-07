@@ -21,6 +21,13 @@ public class UsuarioControllerTest {
 
 		assertTrue(usuarioController.userAutentica("claudioadmin", "123456"));
 	}
+        
+	@Test
+	public void testeRetornaTipo() {
+		UsuarioController usuarioController = new UsuarioController();
+
+		assertEquals("administrador",usuarioController.usuarioTipo("claudioadmin", "123456"));
+	}
 
 	@Test
 	public void testeAlterar() {

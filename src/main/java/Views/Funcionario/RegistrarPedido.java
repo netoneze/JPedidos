@@ -10,7 +10,6 @@ import Controllers.ProdutoController;
 import java.awt.BorderLayout;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

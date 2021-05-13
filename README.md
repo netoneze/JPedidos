@@ -1,7 +1,7 @@
 # JPedidos
 Sistema fictício para controle de pedidos em Java.
 
-Desenvolvido para a disciplina de Oficina de Integração 2, ministrada pelo professor Dr. André Takeshi Endo, do curso de Engenharia de Software da UTFPR de Cornélio procópio.
+Desenvolvido para a disciplina de Oficina de Integração 2, ministrada pelo professor Dr. André Takeshi Endo, do curso de Engenharia de Software da UTFPR de Cornélio Procópio.
 
 Fork criado por Nelson Toneze e Yohan Pessanha.
 

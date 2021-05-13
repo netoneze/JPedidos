@@ -1,9 +1,11 @@
 # JPedidos
-Sistema fictício para controle de pedidos. 
+Sistema fictício para controle de pedidos em Java.
+
+Desenvolvido para a disciplina de Oficina de Integração 2, ministrada pelo professor Dr. André Takeshi Endo, do curso de Engenharia de Software da UTFPR de Cornélio procópio.
 
 Fork criado por Nelson Toneze e Yohan Pessanha.
 
-## Requisitos técnicos obrigatórios
+## Requisitos técnicos obrigatórios utilizados
 - Linguagem de programação Java
 - Banco de dados MySQL
 - GUI Desktop usando Java Swing
@@ -19,17 +21,17 @@ Fork criado por Nelson Toneze e Yohan Pessanha.
 
 - Funcionário: cadastrar um novo pedido. 
 
-## Estórias de usuário
+## Estórias de usuário aplicadas
 
-- E1 - realizar login
+- E1 - Realizar login
 
 Como um usuário, eu quero logar no sistema para acessar minhas funcionalidades no sistema de pedidos.
 
-- E2 - fazer pedido
+- E2 - Fazer pedido
 
 Como um funcionário, eu quero registrar um pedido com produtos para passar a equipe, informar o valor total e atender ao cliente.
 
-- E3 - adicionar usuário
+- E3 - Adicionar usuário
 
 Como um admin, eu quero inserir, atualizar e remover usuários de diferentes tipos. 
 
@@ -37,9 +39,18 @@ Como um admin, eu quero inserir, atualizar e remover usuários de diferentes tip
 
 Como um gerente, eu quero inserir, atualizar e remover produtos para que possam ser vendidos aos clientes.
 
-- E5 - listar pedidos
+- E5 - Listar pedidos
 
 Como um gerente e funcionário, eu quero listar os pedidos para acompanhar as vendas. 
+
+- E6 - Fechar pedido
+
+Como um funcionário, eu quero fechar um pedido para registrar que o pedido foi entregue ao cliente.
+
+- E10 - Fazer pedido de pacote
+
+Como um funcionário, eu quero registrar um pedido pré-definido para passar a equipe, informar o valor total e atender ao cliente.
+
 
 ## Regras de negócio
 
@@ -48,15 +59,3 @@ Como um gerente e funcionário, eu quero listar os pedidos para acompanhar as ve
 - Produto: possui nome curto, descrição e preço unitário. 
 
 - Pedido: possui o nome e telefone do cliente, e contém um ou mais produtos associados. Cada produto tem uma quantidade de no mínimo 1 (um). O valor total do pedido deve ser calculado. 
-
-## Estrutura básica do projeto
-
-- Utilize a estrutura do maven aqui disponibilizada.
-- Instale o Maven
-- Use '>> mvn clean compile assembly:single' para gerar um jar com todas as dependências.
-- Use '>> mvn test' para executar os testes de unidade.
-- Use '>> mvn clean verify' para cobertura de código. Então acesse o relatório em 'firefox target/site/jacoco/index.html'
-
-## Dúvidas
-
-Para dúvidas sobre os requisitos, abra uma issue com a sua questão. 

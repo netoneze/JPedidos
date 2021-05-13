@@ -9,9 +9,9 @@ Fork criado por Nelson Toneze e Yohan Pessanha.
 - Linguagem de programação Java
 - Banco de dados MySQL
 - GUI Desktop usando Java Swing
-- Testes de unidade com JUnit 5 e Mockito
-    - 90% de line coverage
-- No frameworks policy: o projeto não deve incluir muitas dependências, salvo as autorizadas.
+- Testes de unidade com JUnit 5
+    - 75% de line coverage
+- No frameworks policy: Apenas frameworks permitidos pelo professor.
 
 ## Tipos de usuário
 

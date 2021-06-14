@@ -59,3 +59,20 @@ Como um funcionário, eu quero registrar um pedido pré-definido para passar a e
 - Produto: possui nome curto, descrição e preço unitário. 
 
 - Pedido: possui o nome e telefone do cliente, e contém um ou mais produtos associados. Cada produto tem uma quantidade de no mínimo 1 (um). O valor total do pedido deve ser calculado. 
+
+
+## Capturas de Tela
+
+- Algumas printscreens do sistema:
+
+![login](https://user-images.githubusercontent.com/30937322/121937739-6100f680-cd21-11eb-8de3-26878e90360b.png)
+
+![funcionario_home](https://user-images.githubusercontent.com/30937322/121937767-678f6e00-cd21-11eb-9cc8-18ce437c7b4e.png)
+
+![funcionario_pedido](https://user-images.githubusercontent.com/30937322/121937796-70803f80-cd21-11eb-955f-487356eb94fd.png)
+
+![admin_home](https://user-images.githubusercontent.com/30937322/121937809-74ac5d00-cd21-11eb-9e1c-4040d284135e.png)
+
+
+
+
